@@ -63,13 +63,13 @@ class AppController extends Controller
 
     }
 
+    public $theme = 'Sp';
 
-    public function beforeFilter(\Cake\Event\Event $event)
+    public function beforeFilter(Event $event)
     {
         if ($this->request->isMobile()) {
-//            $this->viewBuilder()->theme('Sp');
+            $this->viewBuilder()->theme('Sp');
 
-        $this->viewBuilder()->theme('Sp'); 
 /*
 
         $this->viewBuilder()->templatePath('sp/' . $this->ViewBuilder()->templatePath());

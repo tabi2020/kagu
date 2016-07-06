@@ -15,6 +15,7 @@
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
 
@@ -27,7 +28,7 @@ use Cake\ORM\TableRegistry;
  *
  * @link http://book.cakephp.org/3.0/en/controllers.html#the-app-controller
  */
-class SearchController extends Controller
+class SearchController extends AppController
 {
 
     /**
@@ -69,7 +70,6 @@ class SearchController extends Controller
     $query = $goods->find();
 
     $test = $this->request->query('test');
-    echo $test;
 
     foreach ($query as $row) {
     //    echo $row->good_name;
@@ -78,7 +78,7 @@ class SearchController extends Controller
 
 
         if ($param3 == null ){
-            echo 'null';
+            echo 'param3 null';
         }else{
             echo $param3;
         }
@@ -86,8 +86,14 @@ class SearchController extends Controller
 
     }
 
-   public function searchsp($param1 = null,$param2 = null,$param3 = null)
+
+
+
+   public function test()
     {
+    $this->autoRender = false;        
+    $str = $this->request->data('text1');
+    echo "$str";
     }
 
 }

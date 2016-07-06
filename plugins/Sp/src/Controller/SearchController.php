@@ -18,6 +18,7 @@ use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
 
+
 /**
  * Application Controller
  *
@@ -26,7 +27,7 @@ use Cake\ORM\TableRegistry;
  *
  * @link http://book.cakephp.org/3.0/en/controllers.html#the-app-controller
  */
-class AppController extends Controller
+class SearchController extends AppController
 {
 
     /**
@@ -59,35 +60,34 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
-
-
     }
 
-
-    public function beforeFilter(\Cake\Event\Event $event)
+   public function search($param1 = null,$param2 = null,$param3 = null)
     {
-        if ($this->request->isMobile()) {
-//            $this->viewBuilder()->theme('Sp');
+    $goods = TableRegistry::get('goods');
 
-        $this->viewBuilder()->theme('Sp'); 
-/*
+    $query = $goods->find();
 
-        $this->viewBuilder()->templatePath('sp/' . $this->ViewBuilder()->templatePath());
-        $this->viewBuilder()->layout("sp");
+    $test = $this->request->query('test');
 
-*/
-/*
+    foreach ($query as $row) {
+    //    echo $row->good_name;
+    }
+    $this->set('recode',$query );
 
-        $this->theme = "sp";    // テーマ名を指定
-        $this->layout = 'sp';   // レイアウトファイルとして「sp.ctp」を使用する宣言
 
-            $this->theme = 'sp';
-            $this->viewPath = 'sp';
-*/
+        if ($param3 == null ){
+            echo 'null';
+        }else{
+            echo $param3;
         }
+
+
     }
 
-
-
+   public function searchsp($param1 = null,$param2 = null,$param3 = null)
+    {
+    echo 'bbb';
+    }
 
 }

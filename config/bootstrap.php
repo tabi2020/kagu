@@ -191,6 +191,7 @@ Request::addDetector('tablet', function ($request) {
  */
 
 Plugin::load('Migrations');
+Plugin::load('Sp');
 
 // Only try to load DebugKit in development mode
 // Debug Kit should not be installed on a production system
@@ -204,6 +205,8 @@ if (Configure::read('debug')) {
 DispatcherFactory::add('Asset');
 DispatcherFactory::add('Routing');
 DispatcherFactory::add('ControllerFactory');
+
+
 
 /**
  * Enable immutable time objects in the ORM.
