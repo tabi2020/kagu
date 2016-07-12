@@ -15,9 +15,9 @@
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\ORM\TableRegistry;
 use App\Controller\AppController;
 use Cake\Event\Event;
-use Cake\ORM\TableRegistry;
 
 
 /**
@@ -31,50 +31,25 @@ use Cake\ORM\TableRegistry;
 class SearchController extends AppController
 {
 
-    /**
-     * Initialization hook method.
-     *
-     * Use this method to add common initialization code like loading components.
-     *
-     * e.g. `$this->loadComponent('Security');`
-     *
-     * @return void
-     */
-    public function initialize()
-    {
-        parent::initialize();
-
-        $this->loadComponent('RequestHandler');
-        $this->loadComponent('Flash');
-    }
-
-    /**
-     * Before render callback.
-     *
-     * @param \Cake\Event\Event $event The beforeRender event.
-     * @return void
-     */
-    public function beforeRender(Event $event)
-    {
-        if (!array_key_exists('_serialize', $this->viewVars) &&
-            in_array($this->response->type(), ['application/json', 'application/xml'])
-        ) {
-            $this->set('_serialize', true);
-        }
-    }
-
    public function search($param1 = null,$param2 = null,$param3 = null)
     {
-    $goods = TableRegistry::get('goods');
+        $goods = TableRegistry::get('goods');
 
-    $query = $goods->find();
+        $query = $goods->find()
+                        ->hydrate(true)
+                        ->join([
+                            'table' => 'goods_details',
+                            'alias' => 'details',
+                            'type' => 'Inner',
+                            'conditions' => 'details.id = goods.id',
+                        ])->select([
+                            "id" => "goods.id"
+                            , "name" => "goods.good_name"
+                        ]);
 
-    $test = $this->request->query('test');
 
-    foreach ($query as $row) {
-    //    echo $row->good_name;
-    }
-    $this->set('recode',$query );
+        echo $query;
+        $this->set('recode',$query );
 
 
         if ($param3 == null ){
@@ -82,12 +57,7 @@ class SearchController extends AppController
         }else{
             echo $param3;
         }
-
-
-    }
-
-
-
+   }
 
    public function test()
     {
