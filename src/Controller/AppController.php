@@ -69,25 +69,39 @@ class AppController extends Controller
         if ($this->request->isMobile()) {
 //            $this->viewBuilder()->theme('Sp');
 
-        $this->viewBuilder()->theme('Sp'); 
+        $this->viewBuilder()->theme('Sp');
 /*
-
         $this->viewBuilder()->templatePath('sp/' . $this->ViewBuilder()->templatePath());
         $this->viewBuilder()->layout("sp");
-
 */
 /*
-
         $this->theme = "sp";    // テーマ名を指定
         $this->layout = 'sp';   // レイアウトファイルとして「sp.ctp」を使用する宣言
-
             $this->theme = 'sp';
             $this->viewPath = 'sp';
 */
         }
     }
 
+    public function getBrandId($brandName)
+    {
+      switch ( mb_strtolower($brandName))
+      {
+         //ブランド
+        case 'nitori':
+          return 1;
+          break;
+         case 'ikea':
+          return 2;
+          break;
+        case 'noce':
+           return 3;
+           break;
+        default:
+          return 0;
+      }
 
+    }
 
 
 }
