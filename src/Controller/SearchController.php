@@ -50,7 +50,7 @@ class SearchController extends AppController
 
    public function search($param1 = null,$param2 = null,$param3 = null,$param4 = null)
     {
-      $SerchTypeID = _checkFirstParam($param1);
+      $SerchTypeID = $this -> _checkFirstParam($param1);
       if ($SerchTypeID==1)
       {
         //カテゴリ検索
