@@ -39,7 +39,7 @@ use Cake\Event\Event;
 class SearchController extends AppController
 {
 
-  public function getSearchType($brandID = null,$categoryID = null,$childcategoryID = null,$colorID = null)
+  public function _getSearchType($brandID = null,$categoryID = null,$childcategoryID = null,$colorID = null)
   {
     if ($brandID == null or $brandID == 0 ){
 
@@ -50,7 +50,7 @@ class SearchController extends AppController
 
    public function search($param1 = null,$param2 = null,$param3 = null,$param4 = null)
     {
-      $SerchTypeID = checkFirstParam($param1);
+      $SerchTypeID = _checkFirstParam($param1);
       if ($SerchTypeID==1)
       {
         //カテゴリ検索
@@ -91,7 +91,7 @@ class SearchController extends AppController
         }
   }
 
-   public function checkFirstParam($param1)
+   public function _checkFirstParam($param1)
    {
     switch ( mb_strtolower($param1)) {
       //カテゴリ検索
@@ -110,7 +110,7 @@ class SearchController extends AppController
   /*
     カテゴリ名からID値を返す
   */
-   public function getCategoryId($categoryname)
+   public function _getCategoryId($categoryname)
    {
       switch ( mb_strtolower($categoryname))
       {
@@ -129,7 +129,7 @@ class SearchController extends AppController
     /*
       小カテゴリ名からID値を返す
     */
-    public function getChildCategoryId($childcategoryname)
+    public function _getChildCategoryId($childcategoryname)
     {
        switch ( mb_strtolower($childcategoryname))
        {

@@ -83,7 +83,7 @@ class AppController extends Controller
         }
     }
 
-    public function getBrandId($brandName)
+    public function _getBrandId($brandName)
     {
       switch ( mb_strtolower($brandName))
       {
