@@ -39,35 +39,33 @@ use Cake\Event\Event;
 class SearchController extends AppController
 {
 
-  public function _getSearchType($brandID = null,$categoryID = null,$childcategoryID = null,$colorID = null)
-  {
-    if ($brandID == null or $brandID == 0 ){
-
-
-    }
-
-  }
-
    public function search($param1 = null,$param2 = null,$param3 = null,$param4 = null)
     {
       $SerchTypeID = $this -> _checkFirstParam($param1);
+
       if ($SerchTypeID==1)
       {
         //カテゴリ検索
-        $categoryID = getCategoryId($param2);
-        $childcategoryID = getChildCategoryId($param2);
+        $categoryID = $this -> _getCategoryId($param2);
+        $childcategoryID = $this ->  getChildCategoryId($param2);
 
       }elseif ($SerchTypeID==2){
         //ブランド検索
-        $brandID = getBrandId($param2);
-        $categoryID = getCategoryId($param3);
-        $childcategoryID = getChildCategoryId($param4);
+        $brandID = $this -> _getBrandId($param2);
+        $categoryID = $this -> _getCategoryId($param3);
+        $childcategoryID = $this -> _getChildCategoryId($param4);
       }
-        $colorID = $this->request->data('p_cid');
+        $colorID = $this->request->query('p_cid');
+        $lowprice = $this->request->query('p_pris');
+        $highprice = $this->request->query('p_prie');
+
+        //where句の作成
+        $conditions = $this -> _createCondition($categoryID,$childcategoryID,$brandID,$colorID,$lowprice,$highprice);
 
         $goods = TableRegistry::get('goods');
 
-        $query = $goods->find()
+        $query = $goods->find('all',array(
+                        'conditions' => $conditions))
                         ->hydrate(true)
                         ->join([
                             'table' => 'goods_details',
@@ -83,12 +81,6 @@ class SearchController extends AppController
         echo $query;
         $this->set('recode',$query );
 
-
-        if ($param3 == null ){
-            echo 'param3 null';
-        }else{
-            echo $param3;
-        }
   }
 
    public function _checkFirstParam($param1)
@@ -116,10 +108,10 @@ class SearchController extends AppController
       {
         //カテゴリ
          case 'sofa':
-          $returnValue[] = 1;
+          return 1;
           break;
         case 'light':
-          $returnValue[] = 2;
+          return 2;
           break;
         default:
           return 0;
@@ -135,21 +127,49 @@ class SearchController extends AppController
        {
          //小カテゴリ
           case 'single':
-           $returnValue[] = 1;
+          return 1;
            break;
          case 'double':
-           $returnValue[] = 2;
+         return 2;
            break;
          default:
            return 0;
        }
      }
 
-   public function test()
-    {
-    $this->autoRender = false;
-    $str = $this->request->data('text1');
-    echo "$str";
-    }
+     public function _createCondition($categoryID , $childcategoryID , $brandID , $colorID = null ,$lowprice = null ,$highprice = null )
+     {
+        $conditions = array();
+        if ($categoryID != 0){
+          $conditions['goods.category_id'] = $categoryID;
+        }
+
+        if ($childcategoryID != 0){
+          $conditions['goods.category_child_id'] = $childcategoryID;
+        }
+
+        if ($brandID != 0){
+          $conditions['goods.brand_id'] = $brandID;
+        }
+
+        if ($brandID != 0){
+          $conditions['goods.brand_id'] = $brandID;
+        }
+
+        if (!is_null($colorID)){
+          $conditions['goods.color_id'] = $colorID;
+        }
+
+        if (!is_null($lowprice)){
+          $conditions['goods.price >='] = $lowprice;
+        }
+
+        if (!is_null($highprice)){
+          $conditions['goods.price <='] = $highprice;
+        }
+
+        return $conditions;
+
+      }
 
 }
