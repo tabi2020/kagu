@@ -46,14 +46,20 @@ class SearchController extends AppController
       if ($SerchTypeID==1)
       {
         //カテゴリ検索
-        $categoryID = $this -> _getCategoryId($param2);
-        $childcategoryID = $this ->  getChildCategoryId($param2);
+        $getCategoryArray = $this -> _getCategoryId($param2,$param3);
+        $categoryID =$getCategoryArray[0];
+        $childcategoryID =$getCategoryArray[1];
 
       }elseif ($SerchTypeID==2){
         //ブランド検索
         $brandID = $this -> _getBrandId($param2);
-        $categoryID = $this -> _getCategoryId($param3);
-        $childcategoryID = $this -> _getChildCategoryId($param4);
+        $getCategoryArray = $this -> _getCategoryId($param3,$param4);
+        $categoryID =$getCategoryArray[0];
+        $childcategoryID =$getCategoryArray[1];
+      }else{
+        $brandID = 0;
+        $categoryID = 0;
+        $childcategoryID = 0;
       }
         $colorID = $this->request->query('p_cid');
         $lowprice = $this->request->query('p_pris');
@@ -77,8 +83,6 @@ class SearchController extends AppController
                             , "name" => "goods.good_name"
                         ]);
 
-
-        echo $query;
         $this->set('recode',$query );
 
   }
@@ -100,42 +104,35 @@ class SearchController extends AppController
    }
 
   /*
-    カテゴリ名からID値を返す
+    カテゴリ名、子カテゴリ名からID値を返す
   */
-   public function _getCategoryId($categoryname)
+   public function _getCategoryId($categoryname,$childcategoryname)
    {
+      $categoryID = 0;
+      $childCategoryID = 0;
       switch ( mb_strtolower($categoryname))
       {
         //カテゴリ
-         case 'sofa':
-          return 1;
+        case 'sofa':
+          $categoryID = 1;
+           switch ( mb_strtolower($childcategoryname))
+           {
+              case 'single':
+                $childCategoryID = 1;
+                break;
+             case 'double':
+               $childCategoryID = 2;
+               break;
+             default:
+           }
           break;
         case 'light':
-          return 2;
+          $categoryID = 2;
           break;
         default:
-          return 0;
       }
+      return Array($categoryID,$childCategoryID);
     }
-
-    /*
-      小カテゴリ名からID値を返す
-    */
-    public function _getChildCategoryId($childcategoryname)
-    {
-       switch ( mb_strtolower($childcategoryname))
-       {
-         //小カテゴリ
-          case 'single':
-          return 1;
-           break;
-         case 'double':
-         return 2;
-           break;
-         default:
-           return 0;
-       }
-     }
 
      public function _createCondition($categoryID , $childcategoryID , $brandID , $colorID = null ,$lowprice = null ,$highprice = null )
      {
@@ -146,10 +143,6 @@ class SearchController extends AppController
 
         if ($childcategoryID != 0){
           $conditions['goods.category_child_id'] = $childcategoryID;
-        }
-
-        if ($brandID != 0){
-          $conditions['goods.brand_id'] = $brandID;
         }
 
         if ($brandID != 0){
