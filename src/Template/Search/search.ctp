@@ -1,6 +1,6 @@
 <ul>
 <?php foreach ($recode as $item): ?>
-  <li><?= $item->name ?></li>
+  <li><?= $item->good_name ?></li>
 <?php endforeach; ?>
 </ul>
     <?=$this->Form->create(null,[

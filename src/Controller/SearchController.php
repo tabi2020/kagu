@@ -71,17 +71,24 @@ class SearchController extends AppController
         $goods = TableRegistry::get('goods');
 
         $query = $goods->find('all',array(
-                        'conditions' => $conditions))
+                          'conditions' => $conditions,
+                          'fields' => array('goods.id', 'goods.good_name'),
+                          'order' => array('goods.id DESC'),
+                          )
+
+
+                        )
                         ->hydrate(true)
                         ->join([
                             'table' => 'goods_details',
                             'alias' => 'details',
                             'type' => 'Inner',
                             'conditions' => 'details.id = goods.id',
-                        ])->select([
-                            "id" => "goods.id"
-                            , "name" => "goods.good_name"
                         ]);
+
+
+
+      echo $query;
 
         $this->set('recode',$query );
 
