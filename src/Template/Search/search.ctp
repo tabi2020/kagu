@@ -3,10 +3,9 @@
   <li><?= $item->good_name ?></li>
 <?php endforeach; ?>
 </ul>
-    <?=$this->Form->create(null,[
-        'type' => 'post',
-        'url' => ['controller' => 'Search', 'action' => 'test']]
-    ) ?>
-    <?=$this->Form->text('text1') ?>
-    <?=$this->Form->submit('OK') ?>
-    <?=$this->Form->end() ?>
+<div class="paging">
+    <?= $this->Paginator->prev('<< ' . __('prev')); ?>
+    <?= $this->Paginator->numbers(); ?>
+    <?= $this->Paginator->next(__('next') . ' >>'); ?>
+</div>
+

@@ -39,6 +39,20 @@ use Cake\Event\Event;
 class SearchController extends AppController
 {
 
+    public $paginate = [
+        'limit' => 25,
+        'order' => [
+            'AVGscore' => 'desc'
+        ]
+    ];
+
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Paginator');
+    }
+
+
    public function search($param1 = null,$param2 = null,$param3 = null,$param4 = null)
     {
       $SerchTypeID = $this -> _checkFirstParam($param1);
@@ -71,26 +85,47 @@ class SearchController extends AppController
         $goods = TableRegistry::get('goods');
 
         $query = $goods->find('all',array(
-                          'conditions' => $conditions,
-                          'fields' => array('goods.id', 'goods.good_name'),
-                          'order' => array('goods.id DESC'),
+                          'conditions' => $conditions
                           )
-
-
                         )
                         ->hydrate(true)
                         ->join([
                             'table' => 'goods_details',
                             'alias' => 'details',
                             'type' => 'Inner',
-                            'conditions' => 'details.id = goods.id',
+                            'conditions' => 'details.good_id = goods.id',
+                        ])
+                        ->join([
+                            'table' => 'brands',
+                            'alias' => 'brands',
+                            'type' => 'Inner',
+                            'conditions' => 'brands.id = goods.brand_id',
+                        ])
+                        ->join([
+                            'table' => 'colors',
+                            'alias' => 'colors',
+                            'type' => 'Inner',
+                            'conditions' => 'colors.id = details.color_id',
                         ]);
 
+/*                        ->select(['goods.id', 'goods.good_name' , 'goods.price'])
+                        ->group(['goods.id', 'goods.good_name']);
+*/
 
 
-      echo $query;
+/*
+         $query ->select(['AVGscore' => $query->func()->avg('reviews.score')]);
+         $query ->order(['AVGscore' => 'desc']);
+*/
 
-        $this->set('recode',$query );
+/*
+      $query->select(['total_reviews' => $query->func()->count('goods_reviews.id')])
+          ->leftJoinWith('goods_reviews')
+          ->group(['goods.id'])
+          ->autoFields(true);
+*/
+        echo $query;
+        $this->set('recode',$this->paginate($query));
 
   }
 
