@@ -16,6 +16,10 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+<<<<<<< HEAD
+=======
+use Cake\ORM\TableRegistry;
+>>>>>>> a031930936e3635a489f54d9efe47703779d9108
 
 /**
  * Application Controller
@@ -58,5 +62,53 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
+<<<<<<< HEAD
     }
+=======
+
+
+    }
+
+
+    public function beforeFilter(\Cake\Event\Event $event)
+    {
+        if ($this->request->isMobile()) {
+//            $this->viewBuilder()->theme('Sp');
+
+        $this->viewBuilder()->theme('Sp');
+/*
+        $this->viewBuilder()->templatePath('sp/' . $this->ViewBuilder()->templatePath());
+        $this->viewBuilder()->layout("sp");
+*/
+/*
+        $this->theme = "sp";    // テーマ名を指定
+        $this->layout = 'sp';   // レイアウトファイルとして「sp.ctp」を使用する宣言
+            $this->theme = 'sp';
+            $this->viewPath = 'sp';
+*/
+        }
+    }
+
+    public function _getBrandId($brandName)
+    {
+      switch ( mb_strtolower($brandName))
+      {
+         //ブランド
+        case 'nitori':
+          return 1;
+          break;
+         case 'ikea':
+          return 2;
+          break;
+        case 'noce':
+           return 3;
+           break;
+        default:
+          return 0;
+      }
+
+    }
+
+
+>>>>>>> a031930936e3635a489f54d9efe47703779d9108
 }
