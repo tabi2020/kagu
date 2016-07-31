@@ -126,6 +126,8 @@ class SearchController extends AppController
 
 
 
+
+
 /*                        ->select(['goods.id', 'goods.good_name' , 'goods.price'])
                         ->group(['goods.id', 'goods.good_name']);
 */
