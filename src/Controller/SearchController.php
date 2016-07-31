@@ -83,14 +83,14 @@ class SearchController extends AppController
         $conditions = $this -> _createCondition($categoryID,$childcategoryID,$brandID,$colorID,$lowprice,$highprice);
 
         $goods = TableRegistry::get('goods');
-        $query = $goods->find('all',array(
-                            'conditions' => $conditions
-                            )
-                            ->contain(['goods_details'])
-                            ->contain(['brands'])
-                            ->contain(['colors']);
 
 /*
+        $query = $goods->find('all',[
+                            'conditions' => $conditions,
+                            'contain' => ['goods_details']
+                            ]);
+*/
+
         $query = $goods->find('all',array(
                           'conditions' => $conditions
                           )
@@ -113,8 +113,19 @@ class SearchController extends AppController
                             'alias' => 'colors',
                             'type' => 'Inner',
                             'conditions' => 'colors.id = details.color_id',
-                        ]);
-*/
+                        ])
+                        ->join([
+                            'table' => 'goods_reviews',
+                            'alias' => 'goods_reviews',
+                            'type' => 'LEFT',
+                            'conditions' => 'goods.id = goods_reviews.id',
+                        ])
+
+                        ;
+
+
+
+
 /*                        ->select(['goods.id', 'goods.good_name' , 'goods.price'])
                         ->group(['goods.id', 'goods.good_name']);
 */
