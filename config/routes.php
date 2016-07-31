@@ -48,8 +48,6 @@ Router::scope('/', function (RouteBuilder $routes) {
      * its action called 'display', and we pass a param to select the view file
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
-<<<<<<< HEAD
-=======
 
     $routes->connect(
 #        '/:action/:param1/:param2/:param3/*',
@@ -58,7 +56,6 @@ Router::scope('/', function (RouteBuilder $routes) {
     );
 
 
->>>>>>> a031930936e3635a489f54d9efe47703779d9108
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
 
     /**
