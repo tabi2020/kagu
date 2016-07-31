@@ -16,10 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
-<<<<<<< HEAD
-=======
 use Cake\ORM\TableRegistry;
->>>>>>> a031930936e3635a489f54d9efe47703779d9108
 
 /**
  * Application Controller
@@ -62,11 +59,6 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
-<<<<<<< HEAD
-    }
-=======
-
-
     }
 
 
@@ -110,5 +102,4 @@ class AppController extends Controller
     }
 
 
->>>>>>> a031930936e3635a489f54d9efe47703779d9108
 }
