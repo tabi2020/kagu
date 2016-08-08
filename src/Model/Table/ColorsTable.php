@@ -1,6 +1,7 @@
 <?php
 namespace App\Model\Table;
 
+use App\Model\Entity\Color;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -36,7 +37,7 @@ class ColorsTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->hasMany('GoodsDetails', [
+        $this->hasOne('GoodsDetails', [
             'foreignKey' => 'color_id'
         ]);
     }

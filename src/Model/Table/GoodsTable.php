@@ -1,7 +1,6 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\Good;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -37,19 +36,22 @@ class GoodsTable extends Table
         parent::initialize($config);
 
         $this->table('goods');
-        $this->displayField('id');
+        $this->displayField('good_name');
         $this->primaryKey('id');
 
-        $this->belongsTo('CategoryChildren', [
-            'foreignKey' => 'category_child_id'
+        $this->hasOne('CategoryChildren', [
+            'foreignKey' => 'id'
         ]);
-        $this->belongsTo('Brands', [
-            'foreignKey' => 'brand_id'
+        $this->hasOne('Brands', [
+            'foreignKey' => 'id'
         ]);
-        $this->belongsTo('Materials', [
-            'foreignKey' => 'material_id'
+        $this->hasOne('Materials', [
+            'foreignKey' => 'id'
         ]);
-        $this->hasMany('GoodsDetails', [
+        $this->hasMany('GoodDetails', [
+            'foreignKey' => 'good_id'
+        ]);
+        $this->hasMany('GoodsReviews', [
             'foreignKey' => 'good_id'
         ]);
     }

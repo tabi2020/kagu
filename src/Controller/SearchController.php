@@ -38,18 +38,20 @@ use Cake\Event\Event;
  */
 class SearchController extends AppController
 {
-
+  /*
     public $paginate = [
         'limit' => 25,
         'order' => [
             'AVGscore' => 'desc'
         ]
     ];
-
+*/
     public function initialize()
     {
         parent::initialize();
-        $this->loadComponent('Paginator');
+//        $this->loadComponent('Paginator');
+        $this->goods = TableRegistry::get('goods');
+
     }
 
 
@@ -82,15 +84,28 @@ class SearchController extends AppController
         //where句の作成
         $conditions = $this -> _createCondition($categoryID,$childcategoryID,$brandID,$colorID,$lowprice,$highprice);
 
-        $goods = TableRegistry::get('goods');
 
 /*
-        $query = $goods->find('all',[
-                            'conditions' => $conditions,
-                            'contain' => ['goods_details']
-                            ]);
-*/
 
+        $query = $this->goods->find('all', [
+            'contain' => ['CategoryChildren', 'Brands', 'GoodDetails'],
+            'conditions' => $conditions
+        ]);
+*/
+        $query = $this->goods->find('all', [
+            'conditions' => $conditions
+        ])
+        ->innerJoinWith('Brands')
+        ->innerJoinWith('CategoryChildren')
+        ->innerJoinWith('GoodDetails');
+
+        $query ->select(['avg_score' => $query->func()->avg('GoodsReviews.score')])
+        ->leftJoinWith('GoodsReviews')
+        ->group(['GoodsReviews.good_id'])
+        ->autoFields(true);
+
+
+/*
         $query = $goods->find('all',array(
                           'conditions' => $conditions
                           )
@@ -115,15 +130,15 @@ class SearchController extends AppController
                             'conditions' => 'colors.id = details.color_id',
                         ])
                         ->join([
+                            'fields' => array("reviews.id", "COUNT(reviews.id) AS COUNT"),
                             'table' => 'goods_reviews',
-                            'alias' => 'goods_reviews',
+                            'alias' => 'reviews',
                             'type' => 'LEFT',
-                            'conditions' => 'goods.id = goods_reviews.id',
-                        ])
+                            'conditions' => 'goods.id = reviews.good_id',
+                            'group'      => "reviews.id"
+                        ]);
 
-                        ;
-
-
+*/
 
 
 
