@@ -51,7 +51,30 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
     </section>
 
     <secion id="topItemList">
-        aaa
+        <ul>
+            <li>
+                <a href="">
+                    <div class="img">
+                        <img src="" >
+                    </div>
+                    <div class="itemInfo">
+                        <p class="score">★★</p>
+                        <p claas="brandName">Journal Standart Funiture</p>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <div class="img">
+                        <img src="" >
+                    </div>
+                    <div class="itemInfo">
+                        <p class="score">★★</p>
+                        <p claas="brandName">Journal Standart Funiture</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
     </section>
 
 </body>
