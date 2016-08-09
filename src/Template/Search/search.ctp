@@ -8,4 +8,3 @@
     <?= $this->Paginator->numbers(); ?>
     <?= $this->Paginator->next(__('next') . ' >>'); ?>
 </div>
-
