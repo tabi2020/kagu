@@ -1,0 +1,2 @@
+#gHeader{ display: table; width: 100%; table-layout: fixed; background: #1A1A1A }
+#gHeader #gLogo{ display:table-cell; /*position:absolute*/; vertical-align:top; width:160px; left:50%; margin:0 0 0 -80px; height:24px; padding:14px 0 12px; }
