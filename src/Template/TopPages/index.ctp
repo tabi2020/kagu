@@ -52,16 +52,15 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
 
     <secion id="topItemList">
         <ul>
-
             <?php foreach ($recode as $item): ?>
             <li>
-                <a href="brand/<?= $item->_matchingData['Brands']->brand_name_en ?>/<?= $item->id ?>">
+                <a href="brand/<?= $item->brands['brand_name_en'] ?>/<?= $item->id ?>">
                     <div class="img">
                         <img src="img/goods/1/1.jpg" >
                     </div>
                     <div class="itemInfo">
-                        <p class="score">★★</p>
-                        <p class="brandName"><?= $item->_matchingData['Brands']->brand_name_en ?></p>
+                        <p class="score"><span class="star5"></span></p>
+                        <p class="brandName"><?= $item->brands['brand_name_en'] ?></p>
                     </div>
                 </a>
             </li>

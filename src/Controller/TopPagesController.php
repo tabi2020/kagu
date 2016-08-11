@@ -41,16 +41,68 @@ class TopPagesController extends AppController
     {
         parent::initialize();
         $this->goods = TableRegistry::get('goods');
+        $this->goodsreviews = TableRegistry::get('goods_reviews');
     }
 
     public function index()
     {
+        $subquery = $this->goodsreviews->find('all');
+        $subquery->select(['SCORE' => $subquery->func()->avg('score'),
+                            'good_id' => 'good_id'
+                        ])
+                ->group('good_id');
+
+
         $query = $this->goods->find('all')
         ->hydrate(true)
-        ->matching('Brands');
-//        ->select(['Brands.brand_name','goods.id']);
+        ->join([
+            'Review' => [
+                'table' => $subquery,
+                'type' => 'LEFT',
+                'conditions' => 'goods.id = Review.good_id'
+                ]
+            ])
+        ->join([
+            'table' => 'brands',
+            'type' => 'INNER',
+            'conditions' => 'goods.brand_id = brands.id'
+            ])
+        ->join([
+            'table' => 'good_details',
+            'type' => 'INNER',
+            'conditions' => 'goods.id = good_details.good_id'
+            ])
+        ->join([
+            'table' => 'colors',
+            'type' => 'INNER',
+            'conditions' => 'good_details.color_id = colors.id'
+            ])
+        ->select(['goods.id','brands.brand_name_en','Review.SCORE'])
+        ->order(['Review.SCORE' => 'DESC']);
+      /*  
+        $query = $this->goods->find('all')
+        ->hydrate(true)
+        ->join([
+            'table' => 'good_details',
+            'alias' => 'details',
+            'type' => 'Inner',
+            'conditions' => 'details.good_id = goods.id',
+        ])
+        ->join([
+            'table' => 'brands',
+            'alias' => 'brands',
+            'type' => 'Inner',
+            'conditions' => 'brands.id = goods.brand_id',
+        ])
+        ->join([
+            'table' => 'colors',
+            'alias' => 'colors',
+            'type' => 'Inner',
+            'conditions' => 'colors.id = details.color_id',
+        ]);
+*/
 
-        echo($query);
+//        echo($query);
 
         $this->set('recode',$query);
 

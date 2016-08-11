@@ -9,3 +9,10 @@ body{
 ol, ul {
     list-style: outside none none;
 }
+.star1 {font-size: 18px; }
+
+.star1:before {content: "★"; }
+.star2:before {content: "★★"; }
+.star3:before {content: "★★★"; }
+.star4:before {content: "★★★★"; }
+.star5:before {content: "★★★★★"; }
