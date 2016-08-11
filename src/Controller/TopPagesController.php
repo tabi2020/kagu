@@ -77,6 +77,7 @@ class TopPagesController extends AppController
             'type' => 'INNER',
             'conditions' => 'good_details.color_id = colors.id'
             ])
+        ->limit(30)
         ->select(['goods.id','brands.brand_name_en','Review.SCORE'])
         ->order(['Review.SCORE' => 'DESC']);
       /*  

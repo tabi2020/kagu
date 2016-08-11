@@ -11,6 +11,7 @@ ol, ul {
 }
 .star1 {font-size: 18px; }
 
+.star:before {content: "-"; }
 .star1:before {content: "★"; }
 .star2:before {content: "★★"; }
 .star3:before {content: "★★★"; }
