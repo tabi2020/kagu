@@ -36,7 +36,7 @@ class BrandsTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->hasMany('Goods', [
+        $this->hasOne('Goods', [
             'foreignKey' => 'brand_id'
         ]);
     }

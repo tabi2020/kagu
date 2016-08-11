@@ -1,27 +1,26 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\GoodsDetail;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * GoodsDetails Model
+ * GoodDetails Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Goods
  * @property \Cake\ORM\Association\BelongsTo $Colors
  *
- * @method \App\Model\Entity\GoodsDetail get($primaryKey, $options = [])
- * @method \App\Model\Entity\GoodsDetail newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\GoodsDetail[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\GoodsDetail|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\GoodsDetail patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\GoodsDetail[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\GoodsDetail findOrCreate($search, callable $callback = null)
+ * @method \App\Model\Entity\GoodDetail get($primaryKey, $options = [])
+ * @method \App\Model\Entity\GoodDetail newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\GoodDetail[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\GoodDetail|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\GoodDetail patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\GoodDetail[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\GoodDetail findOrCreate($search, callable $callback = null)
  */
-class GoodsDetailsTable extends Table
+class GoodDetailsTable extends Table
 {
 
     /**
@@ -34,18 +33,15 @@ class GoodsDetailsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('goods_details');
+        $this->table('good_details');
         $this->displayField('id');
         $this->primaryKey('id');
 
         $this->belongsTo('Goods', [
-            'foreignKey' => 'good_id',
-            'joinType' => 'INNER'
+            'foreignKey' => 'id'
         ]);
-
         $this->hasOne('Colors', [
-            'foreignKey' => 'color_id',
-            'joinType' => 'INNER'
+            'foreignKey' => 'id'
         ]);
     }
 
@@ -73,7 +69,7 @@ class GoodsDetailsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['good_id'], 'Goods'));
+        $rules->add($rules->existsIn(['goods_id'], 'Goods'));
         $rules->add($rules->existsIn(['color_id'], 'Colors'));
         return $rules;
     }
