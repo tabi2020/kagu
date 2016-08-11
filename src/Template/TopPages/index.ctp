@@ -54,16 +54,14 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
         <ul>
 
             <?php foreach ($recode as $item): ?>
-            <?php $goods_url = 'brand/' . $item->brand_name .'/' . $item->good_id ; ?>
-            <?php echo $goods_url; ?>
             <li>
-                <a href="">
+                <a href="brand/<?= $item->_matchingData['Brands']->brand_name_en ?>/<?= $item->id ?>">
                     <div class="img">
                         <img src="img/goods/1/1.jpg" >
                     </div>
                     <div class="itemInfo">
                         <p class="score">★★</p>
-                        <p class="brandName">Journal Standart Funiture</p>
+                        <p class="brandName"><?= $item->_matchingData['Brands']->brand_name_en ?></p>
                     </div>
                 </a>
             </li>

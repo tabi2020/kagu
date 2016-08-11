@@ -46,15 +46,9 @@ class TopPagesController extends AppController
     public function index()
     {
         $query = $this->goods->find('all')
-        ->innerJoinWith('Brands')
-        ->innerJoinWith('CategoryChildren')
-        ->innerJoinWith('GoodDetails');
-
-        $query ->select(['avg_score' => $query->func()->avg('GoodsReviews.score')])
-        ->leftJoinWith('GoodsReviews')
-        ->group(['GoodsReviews.good_id'])
-        ->autoFields(true)
-        ->select(['Brands.brand_name']);
+        ->hydrate(true)
+        ->matching('Brands');
+//        ->select(['Brands.brand_name','goods.id']);
 
         echo($query);
 
