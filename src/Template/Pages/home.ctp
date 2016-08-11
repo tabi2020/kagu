@@ -55,7 +55,7 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
             <li>
                 <a href="">
                     <div class="img">
-                        <img src="" >
+                        <img src="img/goods/1/1.jpg" >
                     </div>
                     <div class="itemInfo">
                         <p class="score">★★</p>
@@ -66,7 +66,7 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
             <li>
                 <a href="">
                     <div class="img">
-                        <img src="" >
+                        <img src="img/goods/1/1.jpg" >
                     </div>
                     <div class="itemInfo">
                         <p class="score">★★</p>
