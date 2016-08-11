@@ -36,7 +36,29 @@ class TopPagesController extends AppController
      * @throws \Cake\Network\Exception\NotFoundException When the view file could not
      *   be found or \Cake\View\Exception\MissingTemplateException in debug mode.
      */
+
+    public function initialize()
+    {
+        parent::initialize();
+        $this->goods = TableRegistry::get('goods');
+    }
+
     public function index()
     {
+        $query = $this->goods->find('all')
+        ->innerJoinWith('Brands')
+        ->innerJoinWith('CategoryChildren')
+        ->innerJoinWith('GoodDetails');
+
+        $query ->select(['avg_score' => $query->func()->avg('GoodsReviews.score')])
+        ->leftJoinWith('GoodsReviews')
+        ->group(['GoodsReviews.good_id'])
+        ->autoFields(true)
+        ->select(['Brands.brand_name']);
+
+        echo($query);
+
+        $this->set('recode',$query);
+
     }
 }
