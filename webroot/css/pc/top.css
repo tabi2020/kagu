@@ -4,3 +4,8 @@
 
 /* トップのレコメンドリスト */
 #topItemList{margin:40px auto 0 auto; padding:40px 0 0 0; width:800px; border-top: 1px solid #888888; display: block;}
+#topItemList img{width:250px;}
+#topItemList li{float: left;}
+#topItemList .itemInfo p{text-align: center;}
+#topItemList .itemInfo p.score{margin:10px 0 0 0; color:#202020;}
+#topItemList .itemInfo p.brandName{color:#888888;}
