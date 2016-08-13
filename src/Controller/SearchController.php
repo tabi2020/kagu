@@ -159,7 +159,7 @@ class SearchController extends AppController
           ->group(['goods.id'])
           ->autoFields(true);
 */
-        echo $query;
+ //       echo $query;
         $this->set('recode',$this->paginate($query));
 
   }

@@ -59,7 +59,7 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
                         <img src="img/goods/1/1.jpg" >
                     </div>
                     <div class="itemInfo">
-                        <p class="score"><span class="star5"></span></p>
+                        <p class="score"><span class="star<?= $item->Reviews['Score'] ?>"></span></p>
                         <p class="brandName"><?= $item->brands['brand_name_en'] ?></p>
                     </div>
                 </a>

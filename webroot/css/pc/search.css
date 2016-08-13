@@ -1,0 +1,21 @@
+#main{width:880px; margin: 0 auto;}
+
+/* パンくず */
+#pankuzu li{display: inline;}
+#pankuzu li:before{content:" > ";}
+#pankuzu li:first-child:before{content:none;}
+#pankuzu li{color:#888888;}
+#pankuzu li a{color:#888888;}
+ul#pankuzu{margin-left:0;}
+
+
+/* 検索結果 */
+#topItemList{margin:40px auto 0 auto; padding:40px 0 0 0; width:800px; border-top: 1px solid #888888; display: block;}
+#topItemList img{width:260px;}
+#topItemList li{float: left; height:300px;}
+#topItemList .itemInfo p{text-align: left; margin-bottom: 2px;}
+#topItemList .itemInfo p .score{margin:10px 0 0 10px; color:#202020;}
+#topItemList .itemInfo p.itemName{color:#888888;}
+#topItemList .itemInfo p.price{color:#888888;}
+#topItemList .itemInfo p.brandName{color:#888888; font-size:12px;}
+#topItemList .itemInfo p.category{color:#888888; font-size:12px;}
