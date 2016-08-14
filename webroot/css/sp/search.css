@@ -1,16 +1,5 @@
 #main{width: 100%;}
 
-/* パンくず */
-#pankuzu li{float: left; line-height: 0; height: 17px;}
-/* #pankuzu li{display: inline;} */
-#pankuzu li:first-child{width:46px;}
-#pankuzu li:before{content:" > "; line-height:1.8;}
-#pankuzu li:first-child:before{content:none;}
-#pankuzu li{color:#888888;}
-#pankuzu li a{color:#888888; display: block; line-height: 0;}
-ul#pankuzu{margin-left:0; padding:0;}
-
-
 /* タイトル */
 #searchTitle{text-align: center;}
 #searchTitle h1{font-size:18px; margin: 0; font-weight: lighter;}

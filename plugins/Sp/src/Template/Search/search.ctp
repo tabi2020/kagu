@@ -38,18 +38,19 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
     <?= $this->Html->meta('icon') ?>
     <?= $this->Html->css('common.css') ?>
     <?= $this->Html->css('sp/search.css') ?>
+    <?= $this->Html->css('sp/general.css') ?>
 </head>
 <body class="home">
 	<div id ="main">
-	    <secion id="searchTitle">
+	    <section id="searchTitle">
 	    	<h1>
 	    		Journal Standard Furnitureの商品
 	    	</h1>
 	    	<h2>
 	    		624<span class="item">items</span>
 	    	</h2>
-	    </secion>
-	    <secion id="topItemList">
+	    </section>
+	    <section id="topItemList">
 	        <ul>
 	            <li>
 	                <a href="">
