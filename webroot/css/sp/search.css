@@ -8,7 +8,7 @@
 #pankuzu li:first-child:before{content:none;}
 #pankuzu li{color:#888888;}
 #pankuzu li a{color:#888888; display: block; line-height: 0;}
-ul#pankuzu{margin-left:0;}
+ul#pankuzu{margin-left:0; padding:0;}
 
 
 /* タイトル */

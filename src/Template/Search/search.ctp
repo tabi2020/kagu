@@ -38,13 +38,14 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
     <?= $this->Html->meta('icon') ?>
     <?= $this->Html->css('common.css') ?>
     <?= $this->Html->css('pc/search.css') ?>
+    <?= $this->Html->css('pc/general.css') ?>
 </head>
 <body class="home">
 	<div id ="main">
 		<ul id="pankuzu">
 		　<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
 		　　<a href="/" itemprop="url">
-		　　　<span itemprop="title"><img src="/img/pc/home_ico.png" alt="home"></span>
+		　　　<span itemprop="title"><img src="/img/pc/home_ico.png" alt="home" class="home"></span>
 		　　</a>
 		　</li>
 		　<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">

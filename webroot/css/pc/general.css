@@ -1,0 +1,9 @@
+/* パンくず */
+#pankuzu li{display:inline-block; line-height: 0; height: 17px; font-size: 14px;}
+#pankuzu li:first-child{width:46px;}
+#pankuzu li:before{content:" > ";}
+#pankuzu li:first-child:before{content:none;}
+#pankuzu li{color:#888888;}
+#pankuzu li a{color:#888888; display: block; line-height: 0;}
+ul#pankuzu{margin-left:0; padding:0; font-size: 0;}
+ul#pankuzu li .home{margin-bottom: -8px;}
