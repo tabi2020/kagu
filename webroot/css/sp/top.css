@@ -1,0 +1,16 @@
+/* ビジュアル */
+.topWelcome{width:225px; margin: 40px auto 0 auto; display: block;}
+#topTitle h1{margin:40px 0 0 0;  text-align: center; font-size:18px; line-height: 2; letter-spacing:2px;}
+
+/* レコメンドリスト 
+#topItemList{margin:40px auto 0 auto; padding:40px 0 0 0; width:100%; height: 400px; display: block;}
+#topItemList li{float: left; height:270px;}
+*/
+#topItemList{ margin:0 0 45px 0;}
+#topItemList .itemInfo p{text-align:center;}
+#topItemList .itemInfo p.score{margin:10px 0 0 0; color:#202020;}
+#topItemList .itemInfo p.brandName{color:#888888; margin:0; }
+
+/* 検索箇所 */
+#searchList{border-top: 1px solid #888888; width: 100%;}
+

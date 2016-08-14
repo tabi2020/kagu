@@ -36,32 +36,37 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
         <?= $cakeDescription ?>
     </title>
     <?= $this->Html->meta('icon') ?>
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('cake.css') ?>
     <?= $this->Html->css('common.css') ?>
     <?= $this->Html->css('pc/search.css') ?>
 </head>
 <body class="home">
 	<div id ="main">
 		<ul id="pankuzu">
-		　<li itemscope itemtype=”http://data-vocabulary.org/Breadcrumb”>
-		　　<a href=”/” itemprop=”url”>
-		　　　<span itemprop=”title”><img src="/img/pc/home_ico.png" alt="home"></span>
+		　<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+		　　<a href="/" itemprop="url">
+		　　　<span itemprop="title"><img src="/img/pc/home_ico.png" alt="home"></span>
 		　　</a>
 		　</li>
-		　<li itemscope itemtype=”http://data-vocabulary.org/Breadcrumb”>
-		　　<a href=”/brand/ikea” itemprop=”url”>
-		　　　<span itemprop=”title”>ikeaの商品一覧</span>
+		　<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+		　　<a href="/brand/ikea" itemprop="url">
+		　　　<span itemprop="title">ikea</span>
 		　　</a>
 		　</li>
-		　<li>ikeaのソファ</li>
+		　<li>ikeaのソファのアイテム一覧</li>
 		</ul>
-
+	    <secion id="searchTitle">
+	    	<h1>
+	    		Journal Standard Furnitureの商品
+	    	</h1>
+	    	<h2>
+	    		624<span class="item">items</span>
+	    	</h2>
+	    </secion>
 	    <secion id="topItemList">
 	        <ul>
 	            <?php foreach ($recode as $item): ?>
 	            <li>
-	                <a href="brand/<?= $item->brands['brand_name_en'] ?>/<?= $item->id ?>">
+	                <a href="/brand/<?= $item->brands['brand_name_en'] ?>/<?= $item->id ?>">
 	                    <div class="img">
 	                        <img src="/img/goods/1/1.jpg" >
 	                    </div>

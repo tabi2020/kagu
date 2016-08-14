@@ -36,83 +36,71 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
         <?= $cakeDescription ?>
     </title>
     <?= $this->Html->meta('icon') ?>
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('cake.css') ?>
     <?= $this->Html->css('common.css') ?>
-    <?= $this->Html->css('pc/top.css') ?>
+    <?= $this->Html->css('sp/top.css') ?>
+    <?= $this->Html->css('sp/flickity.min.css') ?>
+    <?= $this->Html->script('jquery.js') ?>
+    <?= $this->Html->script('sp/flickity.pkgd.min.js') ?>
+    <?= $this->Html->script('sp/top.js') ?>
 </head>
 <body class="home">
 
     <section id="topTitle">
-        <img src="img/pc/top_ico.png" alt="Welcome" class="topWelcome">
+        <img src="img/sp/top_ico.png" alt="Welcome" class="topWelcome">
         <h1>ブランド、色、サイズそして★レビューから<br />
             家具を検索できるサイトです
         </h1>
     </section>
 
     <section id="topItemList">
-        <ul>
-            <?php foreach ($recode as $item): ?>
-            <li>
-                <a href="brand/<?= $item->brands['brand_name_en'] ?>/<?= $item->id ?>">
+        <div class="main-gallery">
+            <div class="gallery-cell">
+                <a href="">
                     <div class="img">
                         <img src="img/goods/1/1.jpg" >
                     </div>
                     <div class="itemInfo">
-                        <p class="score"><span class="star<?= $item->Reviews['Score'] ?>"></span></p>
-                        <p class="brandName"><?= $item->brands['brand_name_en'] ?></p>
+                        <p class="score">★★</p>
+                        <p class="brandName">Journal Standart Funiture</p>
                     </div>
                 </a>
-            </li>
-            <?php endforeach; ?>
+            </div>
+            <div class="gallery-cell">
+                <a href="">
+                    <div class="img">
+                        <img src="img/goods/1/1.jpg" >
+                    </div>
+                    <div class="itemInfo">
+                        <p class="score">★★</p>
+                        <p class="brandName">Journal Standart Funiture</p>
+                    </div>
+                </a>
+            </div>
+            <div class="gallery-cell">
+                <a href="">
+                    <div class="img">
+                        <img src="img/goods/1/1.jpg" >
+                    </div>
+                    <div class="itemInfo">
+                        <p class="score">★★</p>
+                        <p class="brandName">Journal Standart Funiture</p>
+                    </div>
+                </a>
+            </div>
 
-
-            <li>
-                <a href="">
-                    <div class="img">
-                        <img src="img/goods/1/1.jpg" >
-                    </div>
-                    <div class="itemInfo">
-                        <p class="score">★★</p>
-                        <p class="brandName">Journal Standart Funiture</p>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="">
-                    <div class="img">
-                        <img src="img/goods/1/1.jpg" >
-                    </div>
-                    <div class="itemInfo">
-                        <p class="score">★★</p>
-                        <p class="brandName">Journal Standart Funiture</p>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="">
-                    <div class="img">
-                        <img src="img/goods/1/1.jpg" >
-                    </div>
-                    <div class="itemInfo">
-                        <p class="score">★★</p>
-                        <p class="brandName">Journal Standart Funiture</p>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="">
-                    <div class="img">
-                        <img src="img/goods/1/1.jpg" >
-                    </div>
-                    <div class="itemInfo">
-                        <p class="score">★★</p>
-                        <p class="brandName">Journal Standart Funiture</p>
-                    </div>
-                </a>
-            </li>
-        </ul>
+        </div>
     </section>
 
+    <section id="searchList">
+        <div id="searchBrand">
+            <p>ブランドから検索</p>
+            <div id="brandSelect">ブランドを選択</div>
+        </div>
+
+        <div id="searchCategory">
+            <p>カテゴリから検索</p>
+        </div>
+
+    </section>
 </body>
 </html>

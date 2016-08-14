@@ -9,8 +9,10 @@ body{
 ol, ul {
     list-style: outside none none;
 }
-.star1 {font-size: 18px; }
 
+a{text-decoration: none;}
+
+.star1 {font-size: 18px; }
 .star:before {content: "-"; }
 .star1:before {content: "★"; }
 .star2:before {content: "★★"; }
