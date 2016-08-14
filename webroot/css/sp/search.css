@@ -1,0 +1,33 @@
+#main{width: 100%;}
+
+/* パンくず */
+#pankuzu li{float: left; line-height: 0; height: 17px;}
+/* #pankuzu li{display: inline;} */
+#pankuzu li:first-child{width:46px;}
+#pankuzu li:before{content:" > "; line-height:1.8;}
+#pankuzu li:first-child:before{content:none;}
+#pankuzu li{color:#888888;}
+#pankuzu li a{color:#888888; display: block; line-height: 0;}
+ul#pankuzu{margin-left:0;}
+
+
+/* タイトル */
+#searchTitle{text-align: center;}
+#searchTitle h1{font-size:18px; margin: 0; font-weight: lighter;}
+#searchTitle h2{font-size:24px; margin: 0;}
+#searchTitle h2 .item{font-size:14px; color:#888888; margin: 0 0 0 4px; }
+
+
+/* 検索結果 */
+#topItemList{margin:0; padding:0; width:100%; border-top: 1px solid #888888; display: block;}
+#topItemList ul{padding: 0; margin: 0;}
+#topItemList img{width:260px; float: left;}
+#topItemList li{height:200px; width: 100%; border-bottom:1px solid #888888; }
+
+#topItemList .itemInfo{margin: 10px 0 0 0;}
+#topItemList .itemInfo p{text-align: left; margin:0 0 2px 0; line-height: 1.6;}
+#topItemList .itemInfo p .score{margin:10px 0 0 10px; color:#202020;}
+#topItemList .itemInfo p.itemName{color:#888888; font-size:16px; height:45px; }
+#topItemList .itemInfo p.price{color:#888888; font-size:16px;}
+#topItemList .itemInfo p.brandName{color:#888888; font-size:14px;}
+#topItemList .itemInfo p.category{color:#888888; font-size:14px;}
