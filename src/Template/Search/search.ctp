@@ -42,6 +42,7 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
 </head>
 <body class="home">
 	<div id ="main">
+
 		<ul id="pankuzu">
 		　<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
 		　　<a href="/" itemprop="url">
@@ -49,31 +50,35 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
 		　　</a>
 		　</li>
 		　<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-		　　<a href="/brand/ikea" itemprop="url">
-		　　　<span itemprop="title">ikea</span>
+		　　<a href="/search/brand/ikea" itemprop="url">
+		　　　<span itemprop="title"><?= $title ?></span>
 		　　</a>
 		　</li>
-		　<li>ikeaのソファのアイテム一覧</li>
+		　<li>&nbsp;<?= $title ?>のソファのアイテム一覧</li>
 		</ul>
-	    <secion id="searchTitle">
+
+	    <section id="searchTitle">
 	    	<h1>
-	    		Journal Standard Furnitureの商品
+	    		<?= $title ?>の商品
 	    	</h1>
 	    	<h2>
-	    		624<span class="item">items</span>
+	    		<?php echo($recode->count()); ?><span class="item">items</span>
 	    	</h2>
-	    </secion>
-	    <secion id="topItemList">
+	    </section>
+
+	    <section id="topItemList">
 	        <ul>
 	            <?php foreach ($recode as $item): ?>
 	            <li>
 	                <a href="/brand/<?= $item->brands['brand_name_en'] ?>/<?= $item->id ?>">
 	                    <div class="img">
-	                        <img src="/img/goods/1/1.jpg" >
+	                        <img src="/img/goods/<?= $item->id ?>/<?= $item->good_details_files['file_name'] ?>" alt="<?= $item->brands['brand_name'] ?>(<?= $item->brands['brand_name_en'] ?>)の<?= $item->good_name ?>(<?= $item->categorys['category_name'] ?>)" >
 	                    </div>
 	                    <div class="itemInfo">
-	                        <p class="score"><span class="star<?= $item->Reviews['Score'] ?>"></span></p>
+	                        <p class="itemName"><?= $item->good_name ?></p>
+	                        <p class="price">¥<?= number_format($item->price) ?><span class="score star<?= round($item->Review['SCORE']) ?>"></span></p>
 	                        <p class="brandName"><?= $item->brands['brand_name_en'] ?></p>
+	                        <p class="category"><?= $item->categorys['category_name'] ?> / <?= $item->category_children['category_child_name'] ?></p>
 	                    </div>
 	                </a>
 	            </li>
@@ -132,6 +137,13 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
 	                </a>
 	            </li>
 	        </ul>
+	    </section>
+	    <section id="pager">
+		    <?= $this->Paginator->prev("<img src='/img/pc/back.png' alt='戻る'>", array("escape" => false)); ?>
+		    <ul id="numbers">
+			    <?= $this->Paginator->numbers(); ?>
+			</ul>
+		    <?= $this->Paginator->next("<img src='/img/pc/next.png' alt='戻る'>", array("escape" => false)); ?>
 	    </section>
 	</div>
 </body>

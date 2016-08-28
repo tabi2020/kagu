@@ -10,10 +10,27 @@
 /* 検索結果 */
 #topItemList{margin:40px auto 0 auto; padding:40px 0 0 0; width:880px; border-top: 1px solid #888888; display: block;}
 #topItemList img{width:280px;}
-#topItemList li{float: left; height:300px;}
+#topItemList li{float: left; height:315px;}
 #topItemList .itemInfo p{text-align: left; margin:0 0 2px 0; line-height: 1.4;}
 #topItemList .itemInfo p .score{margin:10px 0 0 10px; color:#202020;}
 #topItemList .itemInfo p.itemName{color:#888888;}
 #topItemList .itemInfo p.price{color:#888888;}
 #topItemList .itemInfo p.brandName{color:#888888; font-size:12px;}
 #topItemList .itemInfo p.category{color:#888888; font-size:12px;}
+
+
+/*ページャー*/
+#pager{display: inline-block; width: 880px; margin:18px 0 0 0;}
+#pager .prev{float:left; margin:0 20px 0 0; }
+#pager img{height:50px; }
+#pager .next{float: right;}
+
+#pager #numbers{ display: inline-block; margin:2px 0 0 0; padding:0; text-align: center; width:760px; }
+#pager #numbers li{font-size:24px; display:inline; padding: 0 0 0 25px; }
+#pager #numbers li:first-child{padding: 0 0 0 0;}
+#pager #numbers li a{color: #888888;}
+
+#pager li.active{color:#202020;}
+
+#pager .disabled{width:50px;}
+#pager .disabled img{display:none; }

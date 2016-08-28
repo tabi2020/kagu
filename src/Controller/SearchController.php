@@ -38,20 +38,25 @@ use Cake\Event\Event;
  */
 class SearchController extends AppController
 {
-  /*
+
+    public $helpers = [
+        'Paginator' => ['templates' => 'paginator-templates']
+    ];
+
     public $paginate = [
-        'limit' => 25,
+      'fields' => ['goods.id', 'goods.good_name','goods.price','goods.pricetype','goods.price_sale', 'brands.brand_name','brands.brand_name_en' , 'categorys.category_name','category_children.category_child_name' , 'Review.SCORE', 'good_details_files.file_name'],
+        'limit' => 1,
         'order' => [
-            'AVGscore' => 'desc'
+            'Review.SCORE' => 'desc'
         ]
     ];
-*/
+
     public function initialize()
     {
         parent::initialize();
-//        $this->loadComponent('Paginator');
+        $this->loadComponent('Paginator');
         $this->goods = TableRegistry::get('goods');
-
+        $this->goodsreviews = TableRegistry::get('goods_reviews');
     }
 
 
@@ -62,12 +67,14 @@ class SearchController extends AppController
       if ($SerchTypeID==1)
       {
         //カテゴリ検索
+        $this->set('title', $param2);
         $getCategoryArray = $this -> _getCategoryId($param2,$param3);
         $categoryID =$getCategoryArray[0];
         $childcategoryID =$getCategoryArray[1];
 
       }elseif ($SerchTypeID==2){
         //ブランド検索
+        $this->set('title', $param2);
         $brandID = $this -> _getBrandId($param2);
         $getCategoryArray = $this -> _getCategoryId($param3,$param4);
         $categoryID =$getCategoryArray[0];
@@ -84,83 +91,57 @@ class SearchController extends AppController
         //where句の作成
         $conditions = $this -> _createCondition($categoryID,$childcategoryID,$brandID,$colorID,$lowprice,$highprice);
 
+        //レビュ−順を作成
+        $subquery = $this->goodsreviews->find('all');
+        $subquery->select(['SCORE' => $subquery->func()->avg('score'),
+                            'good_id' => 'good_id'
+                        ])
+                ->group('good_id');
 
-/*
-
-        $query = $this->goods->find('all', [
-            'contain' => ['CategoryChildren', 'Brands', 'GoodDetails'],
-            'conditions' => $conditions
-        ]);
-*/
         $query = $this->goods->find('all', [
             'conditions' => $conditions
         ])
-        ->innerJoinWith('Brands')
-        ->innerJoinWith('CategoryChildren')
-        ->innerJoinWith('GoodDetails');
+        ->hydrate(true)
+        ->join([
+            'Review' => [
+                'table' => $subquery,
+                'type' => 'LEFT',
+                'conditions' => 'goods.id = Review.good_id'
+                ]
+            ])
+        ->join([
+            'table' => 'brands',
+            'type' => 'INNER',
+            'conditions' => 'goods.brand_id = brands.id'
+            ])
+        ->join([
+            'table' => 'good_details',
+            'type' => 'INNER',
+            'conditions' => 'goods.id = good_details.good_id'
+            ])
+        ->join([
+            'table' => 'colors',
+            'type' => 'INNER',
+            'conditions' => 'good_details.color_id = colors.id'
+            ])
+       ->join([
+            'table' => 'categorys',
+            'type' => 'INNER',
+            'conditions' => 'goods.category_id = categorys.id'
+            ])
+       ->join([
+            'table' => 'category_children',
+            'type' => 'INNER',
+            'conditions' => 'goods.category_child_id = category_children.id'
+            ])
+       ->join([
+            'table' => 'good_details_files',
+            'type' => 'INNER',
+            'conditions' => 'good_details.id = good_details_files.good_detail_id'
+            ]);
 
-        $query ->select(['avg_score' => $query->func()->avg('GoodsReviews.score')])
-        ->leftJoinWith('GoodsReviews')
-        ->group(['GoodsReviews.good_id'])
-        ->autoFields(true);
-
-
-/*
-        $query = $goods->find('all',array(
-                          'conditions' => $conditions
-                          )
-                        )
-                        ->hydrate(true)
-                        ->join([
-                            'table' => 'goods_details',
-                            'alias' => 'details',
-                            'type' => 'Inner',
-                            'conditions' => 'details.good_id = goods.id',
-                        ])
-                        ->join([
-                            'table' => 'brands',
-                            'alias' => 'brands',
-                            'type' => 'Inner',
-                            'conditions' => 'brands.id = goods.brand_id',
-                        ])
-                        ->join([
-                            'table' => 'colors',
-                            'alias' => 'colors',
-                            'type' => 'Inner',
-                            'conditions' => 'colors.id = details.color_id',
-                        ])
-                        ->join([
-                            'fields' => array("reviews.id", "COUNT(reviews.id) AS COUNT"),
-                            'table' => 'goods_reviews',
-                            'alias' => 'reviews',
-                            'type' => 'LEFT',
-                            'conditions' => 'goods.id = reviews.good_id',
-                            'group'      => "reviews.id"
-                        ]);
-
-*/
-
-
-
-
-/*                        ->select(['goods.id', 'goods.good_name' , 'goods.price'])
-                        ->group(['goods.id', 'goods.good_name']);
-*/
-
-
-/*
-         $query ->select(['AVGscore' => $query->func()->avg('reviews.score')]);
-         $query ->order(['AVGscore' => 'desc']);
-*/
-
-/*
-      $query->select(['total_reviews' => $query->func()->count('goods_reviews.id')])
-          ->leftJoinWith('goods_reviews')
-          ->group(['goods.id'])
-          ->autoFields(true);
-*/
  //       echo $query;
-        $this->set('recode',$this->paginate($query));
+        $this->set('recode',$this-> paginate($query));
 
   }
 
@@ -214,6 +195,10 @@ class SearchController extends AppController
      public function _createCondition($categoryID , $childcategoryID , $brandID , $colorID = null ,$lowprice = null ,$highprice = null )
      {
         $conditions = array();
+
+        $conditions['goods.showwebflag'] = 1;
+        $conditions['good_details_files.main_flag'] = 1;
+
         if ($categoryID != 0){
           $conditions['goods.category_id'] = $categoryID;
         }

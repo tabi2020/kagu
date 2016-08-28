@@ -80,6 +80,8 @@ class TopPagesController extends AppController
         ->limit(30)
         ->select(['goods.id','brands.brand_name_en','Review.SCORE'])
         ->order(['Review.SCORE' => 'DESC']);
+
+        
       /*  
         $query = $this->goods->find('all')
         ->hydrate(true)
