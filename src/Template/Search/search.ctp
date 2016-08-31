@@ -26,6 +26,20 @@ if (!Configure::read('debug')):
 endif;
 
 $cakeDescription = 'CakePHP: the rapid development PHP framework';
+
+
+foreach ($recode as $item){
+	$brand = $item->brands['brand_name_en'];
+	$category = $item->categorys['category_name'];
+	$cateoryChild = $item->category_children['category_child_name'];
+	break;
+}
+
+$title =$brand; 
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -56,6 +70,8 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
 		　</li>
 		　<li>&nbsp;<?= $title ?>のソファのアイテム一覧</li>
 		</ul>
+
+
 
 	    <section id="searchTitle">
 	    	<h1>
