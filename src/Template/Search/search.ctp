@@ -25,20 +25,13 @@ if (!Configure::read('debug')):
     throw new NotFoundException('Please replace src/Template/Pages/home.ctp with your own version.');
 endif;
 
-$cakeDescription = 'CakePHP: the rapid development PHP framework';
 
+if ($SerchTypeID == 1){
+	//カテゴリ
 
-foreach ($recode as $item){
-	$brand = $item->brands['brand_name_en'];
-	$category = $item->categorys['category_name'];
-	$cateoryChild = $item->category_children['category_child_name'];
-	break;
+}else{
+	//ブランド
 }
-
-$title =$brand; 
-
-
-
 
 ?>
 <!DOCTYPE html>
@@ -63,19 +56,22 @@ $title =$brand;
 		　　　<span itemprop="title"><img src="/img/pc/home_ico.png" alt="home" class="home"></span>
 		　　</a>
 		　</li>
-		　<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-		　　<a href="/search/brand/ikea" itemprop="url">
-		　　　<span itemprop="title"><?= $title ?></span>
-		　　</a>
-		　</li>
-		　<li>&nbsp;<?= $title ?>のソファのアイテム一覧</li>
+	      <?php foreach ($search as $key): ?>
+	      	<?php $pankuzu = $pankuzu."/".$key->url_name; ?>
+			　<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+			　　<a href="<?= $pankuzu ?>" itemprop="url">
+			　　　<span itemprop="title"><?= $key->name; ?></span>
+			　　</a>
+			　</li>
+	        <?php endforeach; ?>
+		　<li>&nbsp;対象商品</li>
 		</ul>
 
 
 
 	    <section id="searchTitle">
 	    	<h1>
-	    		<?= $title ?>の商品
+	    		<?= $title ?>
 	    	</h1>
 	    	<h2>
 	    		<?php echo($recode->count()); ?><span class="item">items</span>

@@ -57,91 +57,85 @@ class SearchController extends AppController
         $this->loadComponent('Paginator');
         $this->goods = TableRegistry::get('goods');
         $this->goodsreviews = TableRegistry::get('goods_reviews');
+        $this->search_url = TableRegistry::get('search_url');
     }
 
 
    public function search($param1 = null,$param2 = null,$param3 = null,$param4 = null)
     {
+      //検索のタイプ取得
       $SerchTypeID = $this -> _checkFirstParam($param1);
 
-      if ($SerchTypeID==1)
-      {
-        //カテゴリ検索
-        $this->set('title', $param2);
-        $getCategoryArray = $this -> _getCategoryId($param2,$param3);
-        $categoryID =$getCategoryArray[0];
-        $childcategoryID =$getCategoryArray[1];
+      //パラメーター取得
+      $colorID = $this->request->query('p_cid');
+      $lowprice = $this->request->query('p_pris');
+      $highprice = $this->request->query('p_prie');
 
-      }elseif ($SerchTypeID==2){
-        //ブランド検索
-        $this->set('title', $param2);
-        $brandID = $this -> _getBrandId($param2);
-        $getCategoryArray = $this -> _getCategoryId($param3,$param4);
-        $categoryID =$getCategoryArray[0];
-        $childcategoryID =$getCategoryArray[1];
-      }else{
-        $brandID = 0;
-        $categoryID = 0;
-        $childcategoryID = 0;
-      }
-        $colorID = $this->request->query('p_cid');
-        $lowprice = $this->request->query('p_pris');
-        $highprice = $this->request->query('p_prie');
+      //URL解析
+      $Search = $this->search_url->find('all',[
+                        'order' => ['priority' => 'ASC']
+                      ])
+                      ->hydrate(true)
+                      ->orWhere(['url_name' => $param2])
+                      ->orWhere(['url_name' => $param3])
+                      ->orWhere(['url_name' => $param4]);
 
-        //where句の作成
-        $conditions = $this -> _createCondition($categoryID,$childcategoryID,$brandID,$colorID,$lowprice,$highprice);
+      //where句の作成
+      $conditions = $this -> _createCondition($Search,$colorID,$lowprice,$highprice);
 
-        //レビュ−順を作成
-        $subquery = $this->goodsreviews->find('all');
-        $subquery->select(['SCORE' => $subquery->func()->avg('score'),
-                            'good_id' => 'good_id'
-                        ])
-                ->group('good_id');
+      //レビュ−順を作成
+      $subquery = $this->goodsreviews->find('all');
+      $subquery->select(['SCORE' => $subquery->func()->avg('score'),
+                          'good_id' => 'good_id'
+                      ])
+              ->group('good_id');
 
-        $query = $this->goods->find('all', [
-            'conditions' => $conditions
-        ])
-        ->hydrate(true)
-        ->join([
-            'Review' => [
-                'table' => $subquery,
-                'type' => 'LEFT',
-                'conditions' => 'goods.id = Review.good_id'
-                ]
-            ])
-        ->join([
-            'table' => 'brands',
-            'type' => 'INNER',
-            'conditions' => 'goods.brand_id = brands.id'
-            ])
-        ->join([
-            'table' => 'good_details',
-            'type' => 'INNER',
-            'conditions' => 'goods.id = good_details.good_id'
-            ])
-        ->join([
-            'table' => 'colors',
-            'type' => 'INNER',
-            'conditions' => 'good_details.color_id = colors.id'
-            ])
-       ->join([
-            'table' => 'categorys',
-            'type' => 'INNER',
-            'conditions' => 'goods.category_id = categorys.id'
-            ])
-       ->join([
-            'table' => 'category_children',
-            'type' => 'INNER',
-            'conditions' => 'goods.category_child_id = category_children.id'
-            ])
-       ->join([
-            'table' => 'good_details_files',
-            'type' => 'INNER',
-            'conditions' => 'good_details.id = good_details_files.good_detail_id'
-            ]);
+      $query = $this->goods->find('all', [
+          'conditions' => $conditions
+      ])
+      ->hydrate(true)
+      ->join([
+          'Review' => [
+              'table' => $subquery,
+              'type' => 'LEFT',
+              'conditions' => 'goods.id = Review.good_id'
+              ]
+          ])
+      ->join([
+          'table' => 'brands',
+          'type' => 'INNER',
+          'conditions' => 'goods.brand_id = brands.id'
+          ])
+      ->join([
+          'table' => 'good_details',
+          'type' => 'INNER',
+          'conditions' => 'goods.id = good_details.good_id'
+          ])
+      ->join([
+          'table' => 'colors',
+          'type' => 'INNER',
+          'conditions' => 'good_details.color_id = colors.id'
+          ])
+     ->join([
+          'table' => 'categorys',
+          'type' => 'INNER',
+          'conditions' => 'goods.category_id = categorys.id'
+          ])
+     ->join([
+          'table' => 'category_children',
+          'type' => 'INNER',
+          'conditions' => 'goods.category_child_id = category_children.id'
+          ])
+     ->join([
+          'table' => 'good_details_files',
+          'type' => 'INNER',
+          'conditions' => 'good_details.id = good_details_files.good_detail_id'
+          ]);
 
- //       echo $query;
-        $this->set('recode',$this-> paginate($query));
+      $this->set('pankuzu',"/search/".$param1);
+      $this->set('search',$Search);
+      $this->set('recode',$this->paginate($query));
+      $this->set('SerchTypeID',$SerchTypeID);
 
   }
 
@@ -161,54 +155,31 @@ class SearchController extends AppController
     }
    }
 
-  /*
-    カテゴリ名、子カテゴリ名からID値を返す
-  */
-   public function _getCategoryId($categoryname,$childcategoryname)
-   {
-      $categoryID = 0;
-      $childCategoryID = 0;
-      switch ( mb_strtolower($categoryname))
-      {
-        //カテゴリ
-        case 'sofa':
-          $categoryID = 1;
-           switch ( mb_strtolower($childcategoryname))
-           {
-              case 'single':
-                $childCategoryID = 1;
-                break;
-             case 'double':
-               $childCategoryID = 2;
-               break;
-             default:
-           }
-          break;
-        case 'light':
-          $categoryID = 2;
-          break;
-        default:
-      }
-      return Array($categoryID,$childCategoryID);
-    }
-
-     public function _createCondition($categoryID , $childcategoryID , $brandID , $colorID = null ,$lowprice = null ,$highprice = null )
+     public function _createCondition($search, $colorID = null ,$lowprice = null ,$highprice = null )
      {
+
         $conditions = array();
+        $keyName = array();
+        $keyNameEn = array();
 
         $conditions['goods.showwebflag'] = 1;
         $conditions['good_details_files.main_flag'] = 1;
 
-        if ($categoryID != 0){
-          $conditions['goods.category_id'] = $categoryID;
-        }
+        foreach ($search as $key) {
+            $keyName[$key->priority] = $key->name;
+            $keyNameEn[$key->priority] = $key->name_en;
 
-        if ($childcategoryID != 0){
-          $conditions['goods.category_child_id'] = $childcategoryID;
-        }
-
-        if ($brandID != 0){
-          $conditions['goods.brand_id'] = $brandID;
+          switch ($key->priotity) {
+            case 1:
+             $conditions['goods.brand_id'] = $key->retrun_id;
+             break;
+            case 2:
+             $conditions['goods.category_id'] = $key->retrun_id;
+              break;
+            case 3:
+             $conditions['goods.category_child_id'] = $key->retrun_id;
+              break;
+          }
         }
 
         if (!is_null($colorID)){
@@ -223,8 +194,41 @@ class SearchController extends AppController
           $conditions['goods.price <='] = $highprice;
         }
 
+        $this -> _createDescription($keyName , $keyNameEn);
+
         return $conditions;
 
       }
 
+
+     public function _createDescription($keyName , $keyNameEn){
+
+        if (isset($keyName[1])){
+          $cakeDescription = $keyName[1]." (".$keyNameEn[1].") ";
+          $title = $cakeDescription;
+        }
+
+        if (isset($keyName[3])){
+          if(!empty($cakeDescription)){
+            $cakeDescription = $cakeDescription."の";
+            $title = $cakeDescription;
+          }
+
+          $cakeDescription = $cakeDescription." ".$keyName[3]."/".$keyName[2]." (".$keyNameEn[3]."/".$keyNameEn[2].") ";
+          $title = $title." ".$keyName[3]."/".$keyName[2];
+
+        }elseif(isset($keyName[2])){
+          if(!empty($cakeDescription)){
+            $cakeDescription = $cakeDescription."の";
+            $title = $cakeDescription;
+          }
+          $cakeDescription = $cakeDescription." ".$keyName[2]." (".$keyNameEn[2].") ";
+          $title = $title." ".$keyName[2];
+        }
+
+        $cakeDescription = $cakeDescription."の検索結果 :Mebel(メーベル)";
+        $this->set('cakeDescription',$cakeDescription);
+        $this->set('title',$title);
+
+      }
 }
