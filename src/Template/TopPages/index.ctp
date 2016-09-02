@@ -25,7 +25,7 @@ if (!Configure::read('debug')):
     throw new NotFoundException('Please replace src/Template/Pages/home.ctp with your own version.');
 endif;
 
-$cakeDescription = 'CakePHP: the rapid development PHP framework';
+$cakeDescription = 'インテリア比較検索サイト：Mebel(メーベル)';
 ?>
 <!DOCTYPE html>
 <html>
@@ -46,7 +46,7 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
     <section id="topTitle">
         <img src="img/pc/top_ico.png" alt="Welcome" class="topWelcome">
         <h1>ブランド、色、サイズそして★レビューから<br />
-            家具を検索できるサイトです
+            ニトリやIKEAや無印良品の家具を検索できるサイトです
         </h1>
     </section>
 
