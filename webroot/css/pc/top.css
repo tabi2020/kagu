@@ -3,9 +3,13 @@
 #topTitle h1{margin:40px 0 0 0;  text-align: center; font-size:18px; line-height: 2; letter-spacing:2px;}
 
 /* トップのレコメンドリスト */
-#topItemList{margin:40px auto 0 auto; padding:40px 0 0 0; width:800px; border-top: 1px solid #888888; display: block;}
-#topItemList img{width:260px;}
-#topItemList li{float: left; height:270px;}
-#topItemList .itemInfo p{text-align: center;}
-#topItemList .itemInfo p.score{margin:10px 0 0 0; color:#202020;}
-#topItemList .itemInfo p.brandName{color:#888888;}
+#topItemList{margin:40px auto 0 auto; padding:40px 0 0 0; width:880px; border-top: 1px solid #888888; display: block;}
+#topItemList .img{width:280px; height:240px;}
+#topItemList img{max-width:280px; max-height:240px;}
+#topItemList li{float: left; height:335px;}
+#topItemList .itemInfo p{text-align: left; margin:0 0 2px 10px; line-height: 1.4;}
+#topItemList .itemInfo p .score{margin:10px 0 0 10px; color:#202020;}
+#topItemList .itemInfo p.itemName{color:#888888;}
+#topItemList .itemInfo p.price{color:#888888;}
+#topItemList .itemInfo p.brandName{color:#888888; font-size:12px;}
+#topItemList .itemInfo p.category{color:#888888; font-size:12px;}

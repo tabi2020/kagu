@@ -82,7 +82,7 @@ if ($SerchTypeID == 1){
 	        <ul>
 	            <?php foreach ($recode as $item): ?>
 	            <li>
-	                <a href="/brand/<?= $item->brands['brand_name_en'] ?>/<?= $item->id ?>">
+	                <a href="/brand/<?= $item->brands['brand_search'] ?>/<?= $item->id ?>">
 	                    <div class="img">
 	                        <img src="/img/goods/<?= $item->id ?>/<?= $item->good_details_files['file_name'] ?>" alt="<?= $item->brands['brand_name'] ?>(<?= $item->brands['brand_name_en'] ?>)の<?= $item->good_name ?>(<?= $item->categorys['category_name'] ?>)" >
 	                    </div>
@@ -95,59 +95,6 @@ if ($SerchTypeID == 1){
 	                </a>
 	            </li>
 	            <?php endforeach; ?>
-
-	            <li>
-	                <a href="">
-	                    <div class="img">
-	                        <img src="/img/goods/1/1.jpg" >
-	                    </div>
-	                    <div class="itemInfo">
-	                        <p class="itemName">ROODEZ SOFA 2P DENIM</p>
-	                        <p class="price">¥29,160<span class="score star5"></span></p>
-	                        <p class="brandName">Journal Standart Funiture</p>
-	                        <p class="category">ソファ / 2人用</p>
-	                    </div>
-	                </a>
-	            </li>
-	            <li>
-	                <a href="">
-	                    <div class="img">
-	                        <img src="/img/goods/1/1.jpg" >
-	                    </div>
-	                    <div class="itemInfo">
-	                        <p class="itemName">ROODEZ SOFA 2P DENIM</p>
-	                        <p class="price">¥29,160<span class="score star5"></span></p>
-	                        <p class="brandName">Journal Standart Funiture</p>
-	                        <p class="category">ソファ / 2人用</p>
-	                    </div>
-	                </a>
-	            </li>
-	            <li>
-	                <a href="">
-	                    <div class="img">
-	                        <img src="/img/goods/1/1.jpg" >
-	                    </div>
-	                    <div class="itemInfo">
-	                        <p class="itemName">ROODEZ SOFA 2P DENIM</p>
-	                        <p class="price">¥29,160<span class="score star5"></span></p>
-	                        <p class="brandName">Journal Standart Funiture</p>
-	                        <p class="category">ソファ / 2人用</p>
-	                    </div>
-	                </a>
-	            </li>
-	            <li>
-	                <a href="">
-	                    <div class="img">
-	                        <img src="/img/goods/1/1.jpg" >
-	                    </div>
-	                    <div class="itemInfo">
-	                        <p class="itemName">ROODEZ SOFA 2P DENIM</p>
-	                        <p class="price">¥29,160<span class="score star5"></span></p>
-	                        <p class="brandName">Journal Standart Funiture</p>
-	                        <p class="category">ソファ / 2人用</p>
-	                    </div>
-	                </a>
-	            </li>
 	        </ul>
 	    </section>
 	    <section id="pager">

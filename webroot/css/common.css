@@ -21,3 +21,5 @@ a{text-decoration: none;}
 .star3:before {content: "★★★"; }
 .star4:before {content: "★★★★"; }
 .star5:before {content: "★★★★★"; }
+
+.hide{display:hide;}

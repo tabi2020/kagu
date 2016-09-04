@@ -25,7 +25,7 @@ if (!Configure::read('debug')):
     throw new NotFoundException('Please replace src/Template/Pages/home.ctp with your own version.');
 endif;
 
-$cakeDescription = 'インテリア比較検索サイト：Mebel(メーベル)';
+$cakeDescription = 'インテリア比較/検索サイト：Mebel(メーベル)';
 ?>
 <!DOCTYPE html>
 <html>
@@ -54,13 +54,15 @@ $cakeDescription = 'インテリア比較検索サイト：Mebel(メーベル)';
         <ul>
             <?php foreach ($recode as $item): ?>
             <li>
-                <a href="brand/<?= $item->brands['brand_name_en'] ?>/<?= $item->id ?>">
+                <a href="/brand/<?= $item->brands['brand_search'] ?>/<?= $item->id ?>">
                     <div class="img">
-                        <img src="img/goods/1/1.jpg" >
+                        <img src="/img/goods/<?= $item->id ?>/<?= $item->good_details_files['file_name'] ?>" alt="<?= $item->brands['brand_name'] ?>(<?= $item->brands['brand_name_en'] ?>)の<?= $item->good_name ?>(<?= $item->categorys['category_name'] ?>)" >
                     </div>
                     <div class="itemInfo">
-                        <p class="score"><span class="star<?= $item->Reviews['Score'] ?>"></span></p>
+                        <p class="itemName"><?= $item->good_name ?></p>
+                        <p class="price">¥<?= number_format($item->price) ?><span class="score star<?= round($item->Review['SCORE']) ?>"></span></p>
                         <p class="brandName"><?= $item->brands['brand_name_en'] ?></p>
+                        <p class="category"><?= $item->categorys['category_name'] ?> / <?= $item->category_children['category_child_name'] ?></p>
                     </div>
                 </a>
             </li>
