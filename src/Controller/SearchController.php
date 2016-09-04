@@ -44,8 +44,8 @@ class SearchController extends AppController
     ];
 
     public $paginate = [
-      'fields' => ['goods.id', 'goods.good_name','goods.price','goods.pricetype','goods.price_sale', 'brands.brand_name','brands.brand_name_en' , 'categorys.category_name','category_children.category_child_name' , 'Review.SCORE', 'good_details_files.file_name'],
-        'limit' => 1,
+      'fields' => ['goods.id', 'goods.good_name','goods.price','goods.pricetype','goods.price_sale', 'brands.brand_name','brands.brand_name_en' , 'brands.brand_search','categorys.category_name','categorys.category_search','category_children.category_child_name' ,'category_children.category_child_search', 'Review.SCORE', 'good_details_files.file_name'],
+        'limit' => 21,
         'order' => [
             'Review.SCORE' => 'desc'
         ]

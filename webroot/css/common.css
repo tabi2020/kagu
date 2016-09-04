@@ -22,4 +22,6 @@ a{text-decoration: none;}
 .star4:before {content: "★★★★"; }
 .star5:before {content: "★★★★★"; }
 
-.hide{display:hide;}
+.hide{display:none;}
+
+.arrow_r{background-image:url('/img/sp/grey_arrow.png'); background-repeat:no-repeat; background-size:16px;  background-position:right 17px bottom 11px;; }

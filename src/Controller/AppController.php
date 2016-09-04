@@ -44,6 +44,8 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this -> _getBrandInfo();
+        $this -> _getCategoryInfo();
     }
 
     /**
@@ -83,24 +85,25 @@ class AppController extends Controller
         }
     }
 
-    public function _getBrandId($brandName)
+    public function _getBrandInfo()
     {
-      switch ( mb_strtolower($brandName))
-      {
-         //ブランド
-        case 'nitori':
-          return 1;
-          break;
-         case 'ikea':
-          return 2;
-          break;
-        case 'noce':
-           return 3;
-           break;
-        default:
-          return 0;
-      }
+        $this->brands = TableRegistry::get('brands');
+        $querybrand = $this->brands->find('all')
+                    ->order(['id' => 'ASC']);
+        $this->set('appBrand',$querybrand);
+    }
 
+    public function _getCategoryInfo()
+    {
+        $this->categorys = TableRegistry::get('categorys');
+        $querycategory = $this->categorys->find('all')
+                        ->join([
+                          'table' => 'category_children',
+                          'type' => 'INNER',
+                          'conditions' => 'categorys.id = category_children.category_id'
+                          ])
+                        ->order(['categorys.id' => 'ASC', 'category_children.id' => 'ASC' ]);
+        $this->set('appCategoryquerys',$querycategory);
     }
 
 

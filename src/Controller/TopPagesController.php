@@ -46,6 +46,8 @@ class TopPagesController extends AppController
 
     public function index()
     {
+
+
         $subquery = $this->goodsreviews->find('all');
         $subquery->select(['SCORE' => $subquery->func()->avg('score'),
                             'good_id' => 'good_id'
@@ -77,8 +79,23 @@ class TopPagesController extends AppController
             'type' => 'INNER',
             'conditions' => 'good_details.color_id = colors.id'
             ])
+         ->join([
+              'table' => 'categorys',
+              'type' => 'INNER',
+              'conditions' => 'goods.category_id = categorys.id'
+              ])
+         ->join([
+              'table' => 'category_children',
+              'type' => 'INNER',
+              'conditions' => 'goods.category_child_id = category_children.id'
+              ])
+         ->join([
+              'table' => 'good_details_files',
+              'type' => 'INNER',
+              'conditions' => 'good_details.id = good_details_files.good_detail_id'
+              ])
         ->limit(30)
-        ->select(['goods.id','brands.brand_name_en','Review.SCORE'])
+        ->select(['goods.id', 'goods.good_name','goods.price','goods.pricetype','goods.price_sale', 'brands.brand_name','brands.brand_name_en' , 'brands.brand_search','categorys.category_name','categorys.category_search','category_children.category_child_name' ,'category_children.category_child_search', 'Review.SCORE', 'good_details_files.file_name'])
         ->order(['Review.SCORE' => 'DESC']);
 
         

@@ -95,27 +95,46 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
         <div id="searchBrand">
             <img src="/img/sp/brand.png" alt="ブランドから探す" width="20px">
             <p>ブランドから探す</p>
-            <div id="brandSelect">ブランドを選択</div>
+            <div id="brandSelect" class="arrow_r">ブランドを選択</div>
         </div>
 
         <div id="searchCategory">
             <img src="/img/sp/category.png" alt="カテゴリから探す" width="24px">
             <p>カテゴリから探す</p>
+            <?php foreach ($appCategoryquerys as $appCategoryquery): ?>
+                <li>
+                    <?=$appCategoryquery->category_name ?>
+                </li>
+            <?php endforeach; ?>
+            <ul>
+                <li>
+                    ソファ
+                    <ul>
+                        <li>一人用</li>
+
+                    </ul>
+                </li>
+            </ul>
+
         </div>
 
     </section>
-    <section id="brandList">
-        <div class="mordalTitle">
-            <p class="brandTitle">ブランドから探す</p>
-            <img src="/img/sp/close.png" alt="閉じる" id="modarClose">
+    <section id="brandList" class="hide">
+        <div class="brandSection">
+            <div class="mordalTitle">
+                <p class="brandTitle">ブランドから探す</p>
+                <img src="/img/sp/close.png" alt="閉じる" id="modarClose">
+            </div>
+            <ul>
+            <?php foreach ($appBrand as $appBrandItem): ?>
+                <li class="arrow_r">
+                    <a href="/search/brand/<?= $appBrandItem->brand_search ?>"><?= $appBrandItem->brand_name_en ?> (<?= $appBrandItem->brand_name ?>)</a>
+                </li>
+            <?php endforeach; ?>
+            </ul>
         </div>
-        <ul>
-        <?php foreach ($appBrand as $appBrandItem): ?>
-            <li>
-                <a href="/search/brand/<?= $appBrandItem->brand_search ?>"><?= $appBrandItem->brand_name_en ?> (<?= $appBrandItem->brand_name ?>)</a>
-            </li>
-        <?php endforeach; ?>
-        </ul>
+        <div id="bgBlack">
+        </div>
     </section>
 
 </body>
