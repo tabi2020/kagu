@@ -37,6 +37,7 @@ class CategorysTable extends Table
         $this->primaryKey('id');
 
         $this->hasMany('CategoryChildren', [
+            'className'  => 'category_children',
             'foreignKey' => 'category_id'
         ]);
     }

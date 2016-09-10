@@ -15,13 +15,18 @@
 #searchList{border-top: 1px solid #888888; padding:20px 0 0 0; font-weight: lighter;}
 #searchList #brandSelect{border-top:1px #888888 solid; border-bottom:1px #888888 solid; padding:10px 0 10px 25px;}
 #searchList div img{float:left;}
-#searchList div p{line-height: 1px;}
-#searchList #searchBrand p{line-height:27px;}
+#searchList #searchBrand p{line-height:27px; margin-top:45px;}
 #searchList #searchBrand img{padding:0 10px 0 0;}
 
-#searchList #searchCategory{margin-top:45px;}
-#searchList #searchCategory p{line-height:19px;}
+#searchList #searchCategory p.title{line-height:19px;}
 #searchList #searchCategory img{padding:0 7px 0 0;}
+
+/*カテゴリ*/
+#searchCategory .category{padding:0; border-bottom:1px solid #888888; color:#202020; }
+#searchCategory .category li .trigger{margin:0; height:52px; padding:0 0 0 25px; line-height: 49px;}
+#searchCategory .category .subCategory{padding:0;}
+#searchCategory .category .subCategory li{height:52px; padding:0 0 0 25px;}
+#searchCategory .category li{border-top:1px solid #888888; line-height: 49px;}
 
 /* モーダル */
 #brandList {opacity:0;}

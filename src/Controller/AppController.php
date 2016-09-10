@@ -97,12 +97,17 @@ class AppController extends Controller
     {
         $this->categorys = TableRegistry::get('categorys');
         $querycategory = $this->categorys->find('all')
-                        ->join([
+
+/*                        ->join([
                           'table' => 'category_children',
                           'type' => 'INNER',
                           'conditions' => 'categorys.id = category_children.category_id'
                           ])
-                        ->order(['categorys.id' => 'ASC', 'category_children.id' => 'ASC' ]);
+  */
+                        ->contain('CategoryChildren')
+//                        ->order(['categorys.id' => 'ASC', 'category_children.id' => 'ASC' ]);
+                        ->order(['categorys.id' => 'ASC' ]);
+
         $this->set('appCategoryquerys',$querycategory);
     }
 

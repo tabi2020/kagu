@@ -13,6 +13,8 @@ $(function() {
 		var _this=this;
 		$(function(){
 			_this.showModal();
+		    _this.showCategoryList();
+
 		});
 	},
 	/*-------------------------------------
@@ -32,7 +34,14 @@ $(function() {
 		     $('#brandList').addClass('hide');
 		     $('#brandList').animate({opacity:0},"slow");
 		});
+	},
 
-	}
+  showCategoryList:function(){
+    var $showmore=$('.trigger');
+	$showmore.on('click',function(){
+      $(this).next('ul').slideDown("fast");
+    });
+  }
+
+
 }).init();
-

@@ -24,4 +24,5 @@ a{text-decoration: none;}
 
 .hide{display:none;}
 
-.arrow_r{background-image:url('/img/sp/grey_arrow.png'); background-repeat:no-repeat; background-size:16px;  background-position:right 17px bottom 11px;; }
+.arrow_r{background-image:url('/img/sp/grey_arrow.png'); background-repeat:no-repeat; background-size:16px;  background-position:right 17px bottom 11px; }
+a{color: #888888;}
