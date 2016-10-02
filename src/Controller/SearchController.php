@@ -204,31 +204,49 @@ class SearchController extends AppController
      public function _createDescription($keyName , $keyNameEn){
 
         if (isset($keyName[1])){
-          $cakeDescription = $keyName[1]." (".$keyNameEn[1].") ";
-          $title = $cakeDescription;
+          $mebelTitle = $keyName[1]." (".$keyNameEn[1].") ";
+          $title = $mebelTitle;
+          $mebelDescription = $keyName[1]." | ".$keyNameEn[1];
+          $mebelKeywords = $keyName[1].",".$keyNameEn[1];
         }
 
         if (isset($keyName[3])){
-          if(!empty($cakeDescription)){
-            $cakeDescription = $cakeDescription."の";
-            $title = $cakeDescription;
+          if(!empty($mebelTitle)){
+            $mebelTitle = $mebelTitle."の";
+            $title = $mebelTitle;
+            $mebelDescription = $mebelDescription."の";
+          }else{
+            $mebelKeywords = $mebelKeywords.",";
           }
 
-          $cakeDescription = $cakeDescription." ".$keyName[3]."/".$keyName[2]." (".$keyNameEn[3]."/".$keyNameEn[2].") ";
+          $mebelTitle = $mebelTitle." ".$keyName[3]."/".$keyName[2]." (".$keyNameEn[3]."/".$keyNameEn[2].") ";
           $title = $title." ".$keyName[3]."/".$keyName[2];
+          $mebelKeywords = $mebelKeywords.$keyName[3].",".$keyName[2];
+          $mebelDescription = $mebelDescription.$keyName[2]." (".$keyNameEn[3]."/".$keyNameEn[2].") ";
 
         }elseif(isset($keyName[2])){
-          if(!empty($cakeDescription)){
-            $cakeDescription = $cakeDescription."の";
-            $title = $cakeDescription;
+          if(!empty($mebelTitle)){
+            $mebelTitle = $mebelTitle."の";
+            $title = $mebelTitle;
+            $mebelDescription = $mebelDescription."の";
+          }else{
+            $mebelKeywords = $mebelKeywords.",";
           }
-          $cakeDescription = $cakeDescription." ".$keyName[2]." (".$keyNameEn[2].") ";
+          $mebelTitle = $mebelTitle." ".$keyName[2]." (".$keyNameEn[2].") ";
           $title = $title." ".$keyName[2];
+
+          $mebelKeywords = $mebelKeywords.$keyName[2].",".$keyNameEn[2];
+          $mebelDescription = $mebelDescription." ".$keyName[2]." (".$keyNameEn[2].") ";
+
         }
 
-        $cakeDescription = $cakeDescription."の検索結果 :Mebel(メーベル)";
-        $this->set('cakeDescription',$cakeDescription);
+        $mebelTitle = $mebelTitle."の検索結果 :Mebel(メーベル)";
+        $mebelKeywords =  $mebelKeywords.",通販,比較,mebel,メーベル,インテリア,家具";
+        $mebelDescription =  $mebelDescription."の一覧ページです。ソファやテーブル、照明器具などのインテリアをサイズやレビューから検索することができます。";
+        $this->set('mebelTitle',$mebelTitle);
         $this->set('title',$title);
+        $this->set('mebelKeywords',$mebelKeywords);
+        $this->set('mebelDescription',$mebelDescription);
 
       }
 }

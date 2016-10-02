@@ -39,8 +39,11 @@ if ($SerchTypeID == 1){
 <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="<?= $mebelKeywords ?>" />
+    <meta name="description" content="<?= $mebelDescription ?>" />
+
     <title>
-        <?= $cakeDescription ?>
+        <?= $mebelTitle ?>
     </title>
     <?= $this->Html->meta('icon') ?>
     <?= $this->Html->css('common.css') ?>
@@ -49,27 +52,26 @@ if ($SerchTypeID == 1){
 </head>
 <body class="home">
 	<div id ="main">
-
-		<ul id="pankuzu">
-		　<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-		　　<a href="/" itemprop="url">
-		　　　<span itemprop="title"><img src="/img/pc/home_ico.png" alt="home" class="home"></span>
-		　　</a>
-		　</li>
-	      <?php foreach ($search as $key): ?>
-	      	<?php $pankuzu = $pankuzu."/".$key->url_name; ?>
-			　<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-			　　<a href="<?= $pankuzu ?>" itemprop="url">
-			　　　<span itemprop="title"><?= $key->name; ?></span>
+		<nav>
+			<ul id="pankuzu">
+			　<li>
+			　　<a href="/">
+			　　　<span><img src="/img/pc/home_ico.png" alt="home" class="home"></span>
 			　　</a>
 			　</li>
-	        <?php endforeach; ?>
-		　<li>&nbsp;対象商品</li>
-		</ul>
+		      <?php foreach ($search as $key): ?>
+		      	<?php $pankuzu = $pankuzu."/".$key->url_name; ?>
+				　<li>
+				　　<a href="<?= $pankuzu ?>">
+				　　　<span><?= $key->name; ?></span>
+				　　</a>
+				　</li>
+		        <?php endforeach; ?>
+			　<li>&nbsp;対象商品</li>
+			</ul>
+		</nav>
 
-
-
-	    <section id="searchTitle">
+s	    <section id="searchTitle">
 	    	<h1>
 	    		<?= $title ?>
 	    	</h1>

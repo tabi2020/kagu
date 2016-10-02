@@ -1,17 +1,5 @@
 <?php
-/**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @since         0.10.0
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
@@ -25,15 +13,19 @@ if (!Configure::read('debug')):
     throw new NotFoundException('Please replace src/Template/Pages/home.ctp with your own version.');
 endif;
 
-$cakeDescription = 'インテリア比較/検索サイト：Mebel(メーベル)';
+$mebelTitle = 'インテリア比較/検索サイト：Mebel(メーベル)';
+$mebelKeywords = 'mebel,メーベル,家具,インテリア,ソファ,テーブル,通販,比較,ニトリ,IKEA,イケア';
+$mebelDescription = 'mebelはIKEAやニトリなどブランドの家具を比較できるサイトです。ソファやテーブル、照明器具などのインテリアをサイズやレビューから検索することができます。';
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="<?= $mebelKeywords ?>" />
+    <meta name="description" content="<?= $mebelDescription ?>" />
     <title>
-        <?= $cakeDescription ?>
+        <?= $mebelTitle ?>
     </title>
     <?= $this->Html->meta('icon') ?>
     <?= $this->Html->css('base.css') ?>
