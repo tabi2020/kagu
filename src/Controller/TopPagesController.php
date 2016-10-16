@@ -80,9 +80,9 @@ class TopPagesController extends AppController
             'conditions' => 'good_details.color_id = colors.id'
             ])
          ->join([
-              'table' => 'categorys',
+              'table' => 'categories',
               'type' => 'INNER',
-              'conditions' => 'goods.category_id = categorys.id'
+              'conditions' => 'goods.category_id = categories.id'
               ])
          ->join([
               'table' => 'category_children',
@@ -95,7 +95,7 @@ class TopPagesController extends AppController
               'conditions' => 'good_details.id = good_details_files.good_detail_id'
               ])
         ->limit(30)
-        ->select(['goods.id', 'goods.good_name','goods.price','goods.pricetype','goods.price_sale', 'brands.brand_name','brands.brand_name_en' , 'brands.brand_search','categorys.category_name','categorys.category_search','category_children.category_child_name' ,'category_children.category_child_search', 'Review.SCORE', 'good_details_files.file_name'])
+        ->select(['goods.id', 'goods.good_name','goods.price','goods.pricetype','goods.price_sale', 'brands.brand_name','brands.brand_name_en' , 'brands.brand_search','categories.category_name','categories.category_search','category_children.category_child_name' ,'category_children.category_child_search', 'Review.SCORE', 'good_details_files.file_name'])
         ->order(['Review.SCORE' => 'DESC']);
 
         
@@ -125,6 +125,15 @@ class TopPagesController extends AppController
 //        echo($query);
 
         $this->set('recode',$query);
+        $mebelTitle = 'インテリア比較/検索サイト：Mebel(メーベル)';
+        $mebelKeywords = 'mebel,メーベル,家具,インテリア,ソファ,テーブル,通販,比較,ニトリ,IKEA,イケア';
+        $mebelDescription = 'mebelはIKEAやニトリなどブランドの家具を比較できるサイトです。ソファやテーブル、照明器具などのインテリアをサイズやレビューから検索することができます。';
+
+        $this->set('mebelTitle',$mebelTitle);
+        $this->set('mebelKeywords',$mebelKeywords);
+        $this->set('mebelDescription',$mebelDescription);
+
+
 
     }
 }

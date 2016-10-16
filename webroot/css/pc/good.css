@@ -1,0 +1,21 @@
+#main{width:880px; margin: 15px auto 0 auto;}
+
+.itemInfo #detailInfo{width:380px; border-bottom: 1px solid #808080; border-collapse:collapse}
+.itemInfo tr{border-top:1px solid #808080; width: 100%; padding: 5px 0;}
+.itemInfo td{padding: 5px 0;}
+.itemInfo tr .title{width:100px; text-align: center; border-right: 1px solid #808080; }
+.itemInfo tr .content{padding:0 0 0 8px;}
+.itemInfo .review .score{font-size: 20px;}
+.itemInfo .goodName{font-size: 20px; margin: 0;}
+.itemInfo .goodPrice{font-size: 20px;font-weight: bold; margin-top:0; }
+
+.leftColumn{width: 500px; float: left;}
+.rightColumn{width: 380px; float: right;}
+.rightColumn .otherLink{text-align: center; margin-top:25px;}
+
+.leftColumn .mainImage{width: 500px;}
+.leftColumn .mainImage img{max-width: 500px; max-height: 700px;}
+.leftColumn .thumb{width: 500px;}
+.leftColumn .thumb img{max-width: 75px; max-height: 120px; float: left}
+
+

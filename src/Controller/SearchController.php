@@ -1,17 +1,4 @@
 <?php
-/**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link      http://cakephp.org CakePHP(tm) Project
- * @since     0.2.9
- * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- */
 namespace App\Controller;
 
 use Cake\Controller\Controller;
@@ -44,7 +31,7 @@ class SearchController extends AppController
     ];
 
     public $paginate = [
-      'fields' => ['goods.id', 'goods.good_name','goods.price','goods.pricetype','goods.price_sale', 'brands.brand_name','brands.brand_name_en' , 'brands.brand_search','categorys.category_name','categorys.category_search','category_children.category_child_name' ,'category_children.category_child_search', 'Review.SCORE', 'good_details_files.file_name'],
+      'fields' => ['goods.id', 'goods.good_name','goods.price','goods.pricetype','goods.price_sale', 'brands.brand_name','brands.brand_name_en' , 'brands.brand_search','categories.category_name','categories.category_search','category_children.category_child_name' ,'category_children.category_child_search', 'Review.SCORE', 'good_details_files.file_name'],
         'limit' => 21,
         'order' => [
             'Review.SCORE' => 'desc'
@@ -58,18 +45,34 @@ class SearchController extends AppController
         $this->goods = TableRegistry::get('goods');
         $this->goodsreviews = TableRegistry::get('goods_reviews');
         $this->search_url = TableRegistry::get('search_url');
+        $this->colors = TableRegistry::get('colors');
     }
 
 
    public function search($param1 = null,$param2 = null,$param3 = null,$param4 = null)
     {
-      //検索のタイプ取得
-      $SerchTypeID = $this -> _checkFirstParam($param1);
-
       //パラメーター取得
       $colorID = $this->request->query('p_cid');
       $lowprice = $this->request->query('p_pris');
       $highprice = $this->request->query('p_prie');
+
+      if ($this->request->isMobile() and is_null($param1) and is_null($colorID) and is_null($lowprice) and is_null($highprice)) {
+        $this->set('mebelTitle',"ブランド・カテゴリから家具を検索 :Mebel(メーベル)");
+        $this->set('mebelKeywords',"nitori,ニトリ,IKEA,イケア,通販,比較,mebel,メーベル,インテリア,家具");
+        $this->set('mebelDescription',"ソファやテーブル、照明器具などのインテリアをサイズや価格から検索することができます。");
+        $this->render('index');
+        return;
+      }
+
+      if ((!is_null($colorID) and !ctype_digit($colorID)) or (!is_null($lowprice) and !ctype_digit($lowprice)) or (!is_null($highprice) and !ctype_digit($highprice))){
+        $this->redirect('/',301);
+        return;
+      }
+
+
+      //検索のタイプ取得
+      $SerchTypeID = $this -> _checkFirstParam($param1);
+
 
       //URL解析
       $Search = $this->search_url->find('all',[
@@ -117,9 +120,9 @@ class SearchController extends AppController
           'conditions' => 'good_details.color_id = colors.id'
           ])
      ->join([
-          'table' => 'categorys',
+          'table' => 'categories',
           'type' => 'INNER',
-          'conditions' => 'goods.category_id = categorys.id'
+          'conditions' => 'goods.category_id = categories.id'
           ])
      ->join([
           'table' => 'category_children',
@@ -183,7 +186,7 @@ class SearchController extends AppController
         }
 
         if (!is_null($colorID)){
-          $conditions['goods.color_id'] = $colorID;
+          $conditions['good_details.color_id'] = $colorID;
         }
 
         if (!is_null($lowprice)){
@@ -204,6 +207,7 @@ class SearchController extends AppController
      public function _createDescription($keyName , $keyNameEn){
 
         if (isset($keyName[1])){
+          //ブランド検索
           $mebelTitle = $keyName[1]." (".$keyNameEn[1].") ";
           $title = $mebelTitle;
           $mebelDescription = $keyName[1]." | ".$keyNameEn[1];
@@ -211,34 +215,97 @@ class SearchController extends AppController
         }
 
         if (isset($keyName[3])){
+          //子カテ検索
           if(!empty($mebelTitle)){
             $mebelTitle = $mebelTitle."の";
             $title = $mebelTitle;
             $mebelDescription = $mebelDescription."の";
+
+            $mebelTitle = $mebelTitle." ".$keyName[3]."/".$keyName[2]." (".$keyNameEn[3]."/".$keyNameEn[2].") ";
+            $title = $title." ".$keyName[3]."/".$keyName[2];
+            $mebelKeywords = $mebelKeywords.$keyName[3].",".$keyName[2];
+            $mebelDescription = $mebelDescription.$keyName[2]." (".$keyNameEn[3]."/".$keyNameEn[2].") ";
           }else{
-            $mebelKeywords = $mebelKeywords.",";
+            $mebelTitle = $keyName[3]."/".$keyName[2]." (".$keyNameEn[3]."/".$keyNameEn[2].") ";
+            $title = $keyName[3]."/".$keyName[2];
+            $mebelKeywords = $keyName[3].",".$keyName[2];
+            $mebelDescription = $keyName[2]." (".$keyNameEn[3]."/".$keyNameEn[2].") ";
           }
-
-          $mebelTitle = $mebelTitle." ".$keyName[3]."/".$keyName[2]." (".$keyNameEn[3]."/".$keyNameEn[2].") ";
-          $title = $title." ".$keyName[3]."/".$keyName[2];
-          $mebelKeywords = $mebelKeywords.$keyName[3].",".$keyName[2];
-          $mebelDescription = $mebelDescription.$keyName[2]." (".$keyNameEn[3]."/".$keyNameEn[2].") ";
-
         }elseif(isset($keyName[2])){
+          //親カテ検索
           if(!empty($mebelTitle)){
             $mebelTitle = $mebelTitle."の";
             $title = $mebelTitle;
             $mebelDescription = $mebelDescription."の";
-          }else{
-            $mebelKeywords = $mebelKeywords.",";
-          }
-          $mebelTitle = $mebelTitle." ".$keyName[2]." (".$keyNameEn[2].") ";
-          $title = $title." ".$keyName[2];
 
-          $mebelKeywords = $mebelKeywords.$keyName[2].",".$keyNameEn[2];
-          $mebelDescription = $mebelDescription." ".$keyName[2]." (".$keyNameEn[2].") ";
+            $mebelTitle = $mebelTitle." ".$keyName[2]." (".$keyNameEn[2].") ";
+            $title = $title." ".$keyName[2];
+            $mebelKeywords = $mebelKeywords.$keyName[2].",".$keyNameEn[2];
+            $mebelDescription = $mebelDescription." ".$keyName[2]." (".$keyNameEn[2].") ";
+          }else{
+            $mebelTitle = $keyName[2]." (".$keyNameEn[2].") ";
+            $title = $keyName[2];
+            $mebelKeywords = $keyName[2].",".$keyNameEn[2];
+            $mebelDescription = $keyName[2]." (".$keyNameEn[2].") ";
+          }
 
         }
+        if (!is_null($this->request->query('p_cid'))){
+          $querycolors = $this->colors->find('all')
+                                    ->where(['colors.id' => $this->request->query('p_cid')]);
+            foreach ($querycolors as $colorItem) {
+                $colorName = $colorItem->color_name;
+            }
+          if(!empty($mebelTitle)){
+            $mebelTitle = $colorName."の".$mebelTitle;
+            $mebelKeywords =  $colorName.",".$mebelKeywords.",通販,比較,mebel,メーベル,インテリア,家具";
+            $mebelDescription =  $colorName."の".$mebelDescription;
+            $title = $colorName."の".$title;
+          }else{
+            $mebelTitle = $colorName."の家具";
+            $mebelKeywords =  $colorName;
+            $mebelDescription =  $mebelTitle;
+            $title = $mebelTitle;
+          }
+
+        }
+        $lowprice = $this->request->query('p_pris');
+        $highprice = $this->request->query('p_prie');
+        if (!is_null($lowprice) and !is_null($highprice)){
+          if(!empty($mebelTitle)){
+            $mebelTitle = "¥".number_format($lowprice)."~¥".number_format($highprice)."の".$mebelTitle;
+            $mebelDescription =  "¥".number_format($lowprice)."~¥".number_format($highprice)."の".$mebelDescription;
+            $title = "¥".number_format($lowprice)."~¥".number_format($highprice)."の".$title;
+          }else{
+            $mebelTitle = "¥".number_format($lowprice)."~¥".number_format($highprice)."の家具";
+            $mebelKeywords =  "";
+            $mebelDescription =  $mebelTitle;
+            $title = $mebelTitle;
+          }
+        }elseif(!is_null($lowprice)){
+          if(!empty($mebelTitle)){
+            $mebelTitle = "¥".number_format($lowprice)."以下の".$mebelTitle;
+            $mebelDescription =  "¥".number_format($lowprice)."以下の".$mebelDescription;
+            $title = "¥".number_format($lowprice)."以下の".$title;
+          }else{
+            $mebelTitle = "¥".number_format($lowprice)."以下の"."の家具";
+            $mebelKeywords =  "";
+            $mebelDescription =  $mebelTitle;
+            $title = $mebelTitle;
+          }
+        }elseif(!is_null($highprice)){
+          if(!empty($mebelTitle)){
+            $mebelTitle = "¥".number_format($highprice)."以上の".$mebelTitle;
+            $mebelDescription =  "¥".number_format($highprice)."以上の".$mebelDescription;
+            $title = "¥".number_format($highprice)."以上の".$title;
+          }else{
+            $mebelTitle = "¥".number_format($highprice)."以上の"."の家具";
+            $mebelKeywords =  "";
+            $mebelDescription =  $mebelTitle;
+            $title = $mebelTitle;
+          }
+        }
+
 
         $mebelTitle = $mebelTitle."の検索結果 :Mebel(メーベル)";
         $mebelKeywords =  $mebelKeywords.",通販,比較,mebel,メーベル,インテリア,家具";

@@ -1,14 +1,14 @@
 /* ビジュアル */
 .topWelcome{width:225px; margin: 40px auto 0 auto; display: block;}
-#topTitle h1{margin:40px 0 40px 0;  text-align: center; font-size:24px; line-height: 2; letter-spacing:2px; font-weight: lighter;}
+#topTitle h1{margin:40px 0 40px 0;  text-align: center; font-size:20px; line-height: 2; letter-spacing:2px; font-weight: lighter;}
 
 /* レコメンドリスト 
 #topItemList{margin:40px auto 0 auto; padding:40px 0 0 0; width:100%; height: 400px; display: block;}
 #topItemList li{float: left; height:270px;}
 */
 #topItemList{ margin:0 0 45px 0;}
-#topItemList .itemInfo p{text-align:center;}
-#topItemList .itemInfo p.score{margin:10px 0 0 0; color:#202020;}
+#topItemList .itemInfo p{text-align:center; margin:0;}
+#topItemList .itemInfo p .score{margin:0 0 0 5px; color:#202020;}
 #topItemList .itemInfo p.brandName{color:#888888; margin:0; }
 
 /* 検索箇所 */
@@ -16,10 +16,10 @@
 #searchList #brandSelect{border-top:1px #888888 solid; border-bottom:1px #888888 solid; padding:10px 0 10px 25px;}
 #searchList div img{float:left;}
 #searchList #searchBrand p{line-height:27px; margin-top:45px;}
-#searchList #searchBrand img{padding:0 10px 0 0;}
+#searchList #searchBrand img{padding:0 10px 0 0; margin: 0 0 0 25px;}
 
 #searchList #searchCategory p.title{line-height:19px;}
-#searchList #searchCategory img{padding:0 7px 0 0;}
+#searchList #searchCategory img{padding:0 7px 0 0; margin: 0 0 0 25px;}
 
 /*カテゴリ*/
 #searchCategory .category{padding:0; border-bottom:1px solid #888888; color:#202020; }

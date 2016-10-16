@@ -1,7 +1,7 @@
 #main{width: 100%;}
 
 /* タイトル */
-#searchTitle{text-align: center;}
+#searchTitle{text-align: center; margin: 20px 0 15px  0;}
 #searchTitle h1{font-size:18px; margin: 0; font-weight: lighter;}
 #searchTitle h2{font-size:24px; margin: 0;}
 #searchTitle h2 .item{font-size:14px; color:#888888; margin: 0 0 0 4px; }
@@ -14,10 +14,10 @@
 #topItemList li{height:200px; width: 100%; border-bottom:1px solid #888888; }
 
 
-#topItemList .itemInfo{margin: 0 0 0 0;}
+#topItemList .itemInfo{margin: 0 0 0 5px; display: inline-block;}
 #topItemList .itemInfo p{text-align: left; margin:0 0 2px 0; line-height: 1.6;}
 #topItemList .itemInfo p .score{margin:10px 0 0 10px; color:#202020;}
-#topItemList .itemInfo p.itemName{color:#888888; font-size:16px; height:45px; padding:15px;}
+#topItemList .itemInfo p.itemName{color:#888888; font-size:16px; height:45px; padding:20px 0 0 0;}
 #topItemList .itemInfo p.price{color:#888888; font-size:16px;}
 #topItemList .itemInfo p.brandName{color:#888888; font-size:14px;}
 #topItemList .itemInfo p.category{color:#888888; font-size:14px;}

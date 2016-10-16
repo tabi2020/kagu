@@ -1,0 +1,17 @@
+.imageList .flickity-page-dots{bottom: 10px;}
+
+/* 商品説明*/
+.itemInfo{border-top:1px solid #808080; padding: 0 16px; margin: 16px 0;}
+.itemInfo .goodName{font-size: 16px;}
+.itemInfo .goodPrice{font-weight: bold; font-size: 18px;}
+.itemInfo .score{margin: 0 0 0 20px;}
+.itemInfo .otherLink{text-align: center; margin:8px 0 16px 0; }
+
+.itemInfo #detailInfo{width:100%; border-bottom: 1px solid #808080; border-collapse:collapse}
+.itemInfo tr{border-top:1px solid #808080; width: 100%; padding: 5px 0;}
+.itemInfo td{padding: 5px 0;}
+.itemInfo tr .title{width:200px; text-align: center; border-right: 1px solid #808080; }
+.itemInfo tr .content{padding:0 0 0 8px;}
+
+.reviewInfo{margin: 26px 0 0 0;}
+.reviewInfo .reviewRegist{text-align: center; margin:24px 0 16px 0; }

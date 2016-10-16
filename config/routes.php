@@ -55,6 +55,11 @@ Router::scope('/', function (RouteBuilder $routes) {
         ['controller' => 'Search','action' => 'search']
     );
 
+    $routes->connect(
+        '/brand/*',
+        ['controller' => 'Brand','action' => 'good']
+    );
+
     $routes->connect('/', ['controller' => 'TopPages', 'action' => 'index']);
 
     /**
